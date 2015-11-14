@@ -8,8 +8,12 @@ package com.web.mavenproject6.controller;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -40,10 +44,50 @@ public class LotteryController {
     public String getLotteryUserRoom() {
         return "jsp/userRoom";
     }
-    
+
     @RequestMapping(value = {"/tiket"})
     public String getLotteryTiket() {
         return "jsp/tiket";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = {"/getUserPayment"}, method = RequestMethod.POST)
+    public String getUserPayments() throws JSONException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            UserDetails userDetail = (UserDetails) auth.getPrincipal();
+            JSONObject o = new JSONObject();
+            JSONArray ar = new JSONArray();
+            o.put("paymentCount", "10");
+
+            for (int i = 0; i < 10; i++) {
+                JSONObject obj = new JSONObject();
+                int paymentType = 0;
+                switch (i) {
+                    case 0:
+                    case 1:
+                        paymentType = 1;
+                        break;
+                    case 2:
+                        paymentType = 2;
+                        break;
+                    case 3:
+                        paymentType = 3;
+                        break;
+                    default:
+                        paymentType = 1;
+                        break;
+                }
+                obj.put("paymentType", paymentType);
+                obj.put("paymentNum", (long) (Math.random() * 100000000));
+                obj.put("balance", "230р 50коп.");//
+                ar.add(obj);
+            }
+            o.put("payment", ar);
+
+            return o.toString();
+        }
+        return "not ok";
     }
 
     @ResponseBody
@@ -54,12 +98,24 @@ public class LotteryController {
 
     @ResponseBody
     @RequestMapping(value = "/getUserInfo", method = RequestMethod.POST)
-    public String getUserInfoPOST() {
+    public String getUserInfoPOST() throws JSONException {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            return "ok " + userDetail.getUsername();
+
+            JSONObject obj = new JSONObject();
+
+            obj.put("balance", "2000р");
+            obj.put("discont", "20%");
+            obj.put("ticketCount", "1000шт");
+            obj.put("allTicketCount", "1560шт");//
+            obj.put("fio", "Казякин Семко Албрехтович");//
+            obj.put("age", "33 ГОДА");//
+            obj.put("tel", "8-800-500-0-501");
+            obj.put("email", "dodod@GMAIL.COM");
+
+            return obj.toString();
         }
         return "not ok";
     }
@@ -74,12 +130,12 @@ public class LotteryController {
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             UserDetails userDetail = (UserDetails) auth.getPrincipal();
 
-            in = servletContext.getResourceAsStream("/resources/img/Send.png");
+            in = servletContext.getResourceAsStream("/resources/img/avatar.jpg");
             img = ImageIO.read(in);
             return img;
         }
 
-        in = servletContext.getResourceAsStream("/resources/img/Gerb.png");
+        in = servletContext.getResourceAsStream("/resources/img/avatar.jpg");
         img = ImageIO.read(in);
 
         return img;
@@ -95,21 +151,20 @@ public class LotteryController {
         //json
         return "";
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/getAllTickets", method = RequestMethod.GET)
     public String getUserAllTickets() {
- 
+
         //json
         return "";
     }
-    
+
     @ResponseBody
-    @RequestMapping (value= "/selectAllTikets", method = RequestMethod.GET)
+    @RequestMapping(value = "/selectAllTikets", method = RequestMethod.GET)
     public String selectAllUserTikets() {
         //выделение всех чекбоксов
         return "";
     }
-    
-  
+
 }

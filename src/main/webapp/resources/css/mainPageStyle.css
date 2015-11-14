@@ -1,7 +1,4 @@
-:focus
-{
-    outline: none;
-}
+
 .online-block {
     position: fixed;
     top:0px;
@@ -367,7 +364,7 @@ ul li a
     margin: 0 auto;
     background: rgba(25,25,25,1);
     padding-top:20px;
-    transform:scale(0.75,0.75);
+    //transform:scale(0.75,0.75);
     
 }
 
