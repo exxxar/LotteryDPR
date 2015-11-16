@@ -228,7 +228,14 @@
                                     <li>
                                         <div class="checkbox">
                                             <input id="check1" type="checkbox" name="check" value="check1">
-                                            <label for="check1">
+                                            <label for="check1">   
+                                                <input type="hidden" value="" class="tid"/>
+                                                <input type="hidden" value="" class="tname"/>
+                                                <input type="hidden" value="" class="ttitle"/>
+                                                <input type="hidden" value="" class="tprice"/>
+                                                <input type="hidden" value="" class="tadddate"/>
+                                                <input type="hidden" value="" class="tenddate"/>
+                                                <input type="hidden" value="" class="tisOpend"/>
                                                 <img src="<c:url value="/resources/img/Tiket.jpg"/>"/>
                                             </label>
 
@@ -238,6 +245,13 @@
                                         <div class="checkbox">
                                             <input id="check2" type="checkbox" name="check" value="check1">
                                             <label for="check2">
+                                                 <input type="hidden" value="" class="tid"/>
+                                                <input type="hidden" value="" class="tname"/>
+                                                <input type="hidden" value="" class="ttitle"/>
+                                                <input type="hidden" value="" class="tprice"/>
+                                                <input type="hidden" value="" class="tadddate"/>
+                                                <input type="hidden" value="" class="tenddate"/>
+                                                <input type="hidden" value="" class="tisOpend"/>
                                                 <img src="<c:url value="/resources/img/Tiket.jpg"/>"/>
                                             </label>
 
@@ -247,6 +261,86 @@
                                         <div class="checkbox">
                                             <input id="check3" type="checkbox" name="check" value="check1">
                                             <label for="check3">
+                                                 <input type="hidden" value="" class="tid"/>
+                                                <input type="hidden" value="" class="tname"/>
+                                                <input type="hidden" value="" class="ttitle"/>
+                                                <input type="hidden" value="" class="tprice"/>
+                                                <input type="hidden" value="" class="tadddate"/>
+                                                <input type="hidden" value="" class="tenddate"/>
+                                                <input type="hidden" value="" class="tisOpend"/>
+                                                <img src="<c:url value="/resources/img/Tiket.jpg"/>"/>
+                                            </label>	
+                                        </div>
+
+                                    </li>
+
+                                    <li>
+                                        <div class="checkbox">
+                                            <input id="check4" type="checkbox" name="check" value="check1">
+                                            <label for="check4">
+                                                <img src="<c:url value="/resources/img/Tiket.jpg"/>"/>
+                                            </label>	
+                                        </div>
+
+                                    </li>
+
+                                    <li>
+                                        <div class="checkbox">
+                                            <input id="check5" type="checkbox" name="check" value="check1">
+                                            <label for="check5">
+                                                 <input type="hidden" value="" class="tid"/>
+                                                <input type="hidden" value="" class="tname"/>
+                                                <input type="hidden" value="" class="ttitle"/>
+                                                <input type="hidden" value="" class="tprice"/>
+                                                <input type="hidden" value="" class="tadddate"/>
+                                                <input type="hidden" value="" class="tenddate"/>
+                                                <input type="hidden" value="" class="tisOpend"/>
+                                                <img src="<c:url value="/resources/img/Tiket.jpg"/>"/>
+                                            </label>	
+                                        </div>
+
+                                    </li>
+
+                                    <li>
+                                        <div class="checkbox">
+                                            <input id="check6" type="checkbox" name="check" value="check1">
+                                            <label for="check6">
+                                                <img src="<c:url value="/resources/img/Tiket.jpg"/>"/>
+                                            </label>	
+                                        </div>
+
+                                    </li>
+
+
+                                    <li>
+                                        <div class="checkbox">
+                                            <input id="check7" type="checkbox" name="check" value="check1">
+                                            <label for="check7">
+                                                 <input type="hidden" value="" class="tid"/>
+                                                <input type="hidden" value="" class="tname"/>
+                                                <input type="hidden" value="" class="ttitle"/>
+                                                <input type="hidden" value="" class="tprice"/>
+                                                <input type="hidden" value="" class="tadddate"/>
+                                                <input type="hidden" value="" class="tenddate"/>
+                                                <input type="hidden" value="" class="tisOpend"/>
+                                                <img src="<c:url value="/resources/img/Tiket.jpg"/>"/>
+                                            </label>	
+                                        </div>
+
+                                    </li>
+
+
+                                    <li>
+                                        <div class="checkbox">
+                                            <input id="check8" type="checkbox" name="check" value="check1">
+                                            <label for="check8">
+                                                 <input type="hidden" value="" class="tid"/>
+                                                <input type="hidden" value="" class="tname"/>
+                                                <input type="hidden" value="" class="ttitle"/>
+                                                <input type="hidden" value="" class="tprice"/>
+                                                <input type="hidden" value="" class="tadddate"/>
+                                                <input type="hidden" value="" class="tenddate"/>
+                                                <input type="hidden" value="" class="tisOpend"/>
                                                 <img src="<c:url value="/resources/img/Tiket.jpg"/>"/>
                                             </label>	
                                         </div>

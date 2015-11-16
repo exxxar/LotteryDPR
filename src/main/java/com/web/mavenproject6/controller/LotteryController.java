@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.web.mavenproject6.controller;
 
 import java.awt.image.BufferedImage;
@@ -143,13 +139,36 @@ public class LotteryController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/getPacketTickets", method = RequestMethod.GET)
-    public String getUserPacketTickets(
+    @RequestMapping(value = "/getTickets", method = RequestMethod.POST)
+    public String getUserTickets(
             @RequestParam(required = false) String ticketPacket
-    ) {
+    ) throws JSONException {
         int packetTicket = Integer.parseInt(ticketPacket);
-        //json
-        return "";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            UserDetails userDetail = (UserDetails) auth.getPrincipal();
+            
+            JSONObject o = new JSONObject();
+            JSONArray ar = new JSONArray();
+            o.put("ticketsCount", "37");
+            o.put("displayedTickets", "10");
+            
+            for (int i=0;i<10;i++){
+            JSONObject obj = new JSONObject();
+
+            obj.put("id", "1");
+            obj.put("name", "НАЦИОНАЛЬНАЯ ЛОТЕРЕЯ ДНР");
+            obj.put("title", "100% ПОБЕДА");
+            obj.put("price", "100р");//            
+            obj.put("adddate","01.05.2015");//
+            obj.put("enddate", "01.06.2015");// 
+            obj.put("isOpend", "false");
+
+            ar.add(obj);
+            }
+            return o.put("tickets", ar).toString();
+        }
+        return "not ok";
     }
 
     @ResponseBody
