@@ -10,7 +10,7 @@ package com.web.mavenproject6.service;
  * @author Татьяна Юрченко
  */
 
-import com.web.mavenproject6.entities.AccountsVerifiedCodes;
+
 import com.web.mavenproject6.entities.Users;
 import com.web.mavenproject6.forms.MailForm;
 import java.util.HashMap;

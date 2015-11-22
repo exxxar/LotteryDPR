@@ -5,13 +5,16 @@
  */
 package com.web.mavenproject6.controller;
 
+import com.web.mavenproject6.entities.BasketLog;
 import com.web.mavenproject6.entities.PaymentSystems;
 import com.web.mavenproject6.entities.Roles;
-
 import com.web.mavenproject6.entities.Users;
+import com.web.mavenproject6.entities.UsersTypes;
 import com.web.mavenproject6.forms.UserForm;
 import com.web.mavenproject6.other.UserSessionComponent;
 import com.web.mavenproject6.service.MailSenderService;
+import com.web.mavenproject6.service.PaymentSystemService;
+import com.web.mavenproject6.service.RolesService;
 import com.web.mavenproject6.service.UserService;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.tanesha.recaptcha.ReCaptchaImpl;
 import net.tanesha.recaptcha.ReCaptchaResponse;
+import org.hibernate.usertype.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.env.Environment;
@@ -59,6 +63,14 @@ public class UserController {
     @Qualifier("UserServiceImpl")
     UserService userService;
 
+    @Autowired
+    @Qualifier("RolesServiceImpl")
+    RolesService rolesService;
+
+     @Autowired
+    @Qualifier("PaymentSystemServiceImpl")
+    PaymentSystemService paymentSystemService;
+
 //    @Autowired
 //    AccountsVerifiedCodes securityCodeRepository;
     @Autowired
@@ -79,7 +91,6 @@ public class UserController {
     public void setMyUserDetailsService(UserDetailsService myUserDetailsService) {
         this.myUserDetailsService = myUserDetailsService;
     }
-   
 
     @RequestMapping(value = "/public/signup_confirm", method = RequestMethod.POST)
     public Object createUser(Model model,
@@ -99,58 +110,55 @@ public class UserController {
             return re;
         }
 
-       
-        Users user = new Users();
-        user.setEmail(form.getEmail());
-        user.setRegdate((java.sql.Date) new Date());
-        user.setFio(form.getFname()+" "+form.getSname()+" "+form.getTname());
-        user.setLogin(form.getUsername());
-        user.setLastonline((java.sql.Date) new Date());
-        user.setPassword(form.getPassword());
-        user.setAdress("");
-       
-        
-        Roles role = new Roles();
-        role.setRole("USER");
-        user.setRole(role);
-        
-        user.setDiscount(0l);
-        
-      
-        user.setPaymentSystems(null);
-        user.setTelephone("+380953310291");
-        user.setNumberoftikets(0l);
-        
-        user.setUserType(null);
-        user.setVerifiedAccount(true);
-        userService.save(user);
 
-        return new ModelAndView("jsp/userRoom");
+         Users user = new Users();
+
+            user.setLogin(form.getUsername());
+            user.setEmail(form.getEmail());
+            user.setEnabled(false);
+            user.setPassword(form.getPassword());
+
+            Roles role = new Roles();
+            role.setUser(user);
+            role.setRole(2);
+            user.setRole(role);
+           
+            UsersTypes ut = new UsersTypes();
+            ut.setTypeName("ПОКУПАТЕЛЬ");
+            ut.setUser(user);
+            user.setUserType(ut);
+         
+            userService.getRepository().save(user);
+
+     
+        System.out.println("we are here13");
+        RedirectView re = new RedirectView("/login#signup", true);
+            re.addStaticAttribute("user", form);
+            return re;
     }
 
-
-    @RequestMapping(value = "/public/activation", method = RequestMethod.GET)
-    @Transactional
-    public String activation(@RequestParam String mail, @RequestParam String code, Model model) {
-        log.debug("Enter: activation");
-        //if (userService.findUserBySecurityCode(mail, code) != null) {
-        Users user = userService.getRepository().findUsersByEmail(mail);
-        user.setVerifiedAccount(true);
-        // securityCodeRepository.delete(user.getSecurityCode());
-        //user.setSecurityCode(null);
-        userService.save(user);
-        UserDetails userDetails = myUserDetailsService.loadUserByUsername(user.getEmail());
-        Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, user.getPassword(), AUTHORITIES);
-        SecurityContextHolder.getContext().setAuthentication(auth);
-        userSessionComponent.setCurrentUser(user);
-        log.debug("Exit: activation");
-        //model.addAttribute("propId", user.getPerson().getAccessNumber());
-        return "thy/personal/profile";
-        //}
-        //log.debug("Exit: activation");
-        // return "thy/error/error";
-
-    }
+//    @RequestMapping(value = "/public/activation", method = RequestMethod.GET)
+//    @Transactional
+//    public String activation(@RequestParam String mail, @RequestParam String code, Model model) {
+//        log.debug("Enter: activation");
+//        //if (userService.findUserBySecurityCode(mail, code) != null) {
+//        Users user = userService.getRepository().findUsersByEmail(mail);
+//        user.setVerifiedAccount(true);
+//        // securityCodeRepository.delete(user.getSecurityCode());
+//        //user.setSecurityCode(null);
+//        userService.save(user);
+//        UserDetails userDetails = myUserDetailsService.loadUserByUsername(user.getEmail());
+//        Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, user.getPassword(), AUTHORITIES);
+//        SecurityContextHolder.getContext().setAuthentication(auth);
+//        userSessionComponent.setCurrentUser(user);
+//        log.debug("Exit: activation");
+//        //model.addAttribute("propId", user.getPerson().getAccessNumber());
+//        return "thy/personal/profile";
+//        //}
+//        //log.debug("Exit: activation");
+//        // return "thy/error/error";
+//
+//    }
 
     @RequestMapping(value = "/login")
     public String login(@RequestParam(value = "error", required = false) String error,
@@ -159,7 +167,7 @@ public class UserController {
 
         mailSenderService.sendGreatingMail("exxxar@gmail.com", "new user has entered to your site");
         model.addAttribute("user", new UserForm());
-     
+
         if (logout != null) {
             return "jsp/index";
         }

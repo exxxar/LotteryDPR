@@ -47,11 +47,11 @@ public class UserDetailsServiceImpl implements UserDetailsService
             return new org.springframework.security.core.userdetails.User(
                     domainUser.getEmail(),
                     domainUser.getPassword(),
-                    domainUser.isVerifiedAccount(),
+                    true,
                     accountNonExpired,
                     credentialsNonExpired,
                     accountNonLocked,
-                    getAuthorities(domainUser.getUserType().getId().intValue()));
+                    getAuthorities(1));
         }
         catch (Exception e) 
         {   

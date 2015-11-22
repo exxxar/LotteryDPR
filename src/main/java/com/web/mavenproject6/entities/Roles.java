@@ -17,18 +17,14 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity
 @Table(name = "roles")
-public class Roles implements Serializable 
-{
-    @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name= "increment", strategy= "increment")
-    @Column(name = "id", nullable = false)
+public class Roles implements Serializable {
+ @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    private String rolename;
-    
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Users> users;
+    @OneToOne
+    private Users user;
+    private Integer role;
 
     public Long getId() {
         return id;
@@ -38,20 +34,23 @@ public class Roles implements Serializable
         this.id = id;
     }
 
-    public String getRole() {
-        return rolename;
+    public Users getUser() {
+        return user;
     }
 
-    public void setRole(String role) {
-        this.rolename = role;
+    public void setUser(Users user) {
+        this.user = user;
     }
 
-    public List<Users> getUsers() {
-        return users;
+    public Integer getRole() {
+        return role;
     }
 
-    public void setUsers(List<Users> users) {
-        this.users = users;
+    public void setRole(Integer role) {
+        this.role = role;
     }
+
+    
+    
     
 }

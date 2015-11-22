@@ -7,20 +7,20 @@ package com.web.mavenproject6.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
+
 /**
  *
  * @author Татьяна Юрченко
  */
 @Entity
 @Table(name = "users")
-public class Users implements Serializable 
-{
-    @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name= "increment", strategy= "increment")
-    @Column(name = "id", nullable = false)
+public class Users implements Serializable {
+
+     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
     private String fio;   
@@ -36,22 +36,90 @@ public class Users implements Serializable
     
     @Column(unique = true)
     private String login;
-    
-    @ManyToOne
-    private Roles role;
-    
-    @ManyToOne
+
+
+    @OneToOne(mappedBy = "user", cascade = {CascadeType.ALL})
     private UsersTypes userType;
 
-     //  @OneToMany(mappedBy = "userid", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private PaymentSystems paymentSystems;
+//    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+//    private personal person;
+//
+//    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+//    private SecurityCode securityCode;
+
+    private boolean accountExpired;
+    private boolean accountLocked;
+    private boolean enabled;
+
+  
     
+    @OneToOne(mappedBy = "user", cascade = {CascadeType.ALL})
+    private Roles role;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+
+    public boolean isAccountExpired() {
+        return accountExpired;
+    }
+
+    public void setAccountExpired(boolean accountExpired) {
+        this.accountExpired = accountExpired;
+    }
+
+    public boolean isAccountLocked() {
+        return accountLocked;
+    }
+
+    public void setAccountLocked(boolean accountLocked) {
+        this.accountLocked = accountLocked;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Roles getRole() {
+        return role;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
     }
 
     public String getFio() {
@@ -78,22 +146,6 @@ public class Users implements Serializable
         this.telephone = telephone;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public Long getNumberoftikets() {
         return numberoftikets;
     }
@@ -110,61 +162,40 @@ public class Users implements Serializable
         this.discount = discount;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public Roles getRole() {
-        return role;
-    }
-
-    public void setRole(Roles role) {
-        this.role = role;
+    public Date getRegdate() {
+        return regdate;
     }
 
     public void setRegdate(Date regdate) {
         this.regdate = regdate;
     }
 
-    public void setLastonline(Date lastonline) {
-        this.lastonline = lastonline;
-    }
-
-    public void setVerifiedAccount(boolean verifiedAccount) {
-        this.verifiedAccount = verifiedAccount;
-    }
-
-    public void setUserType(UsersTypes userType) {
-        this.userType = userType;
-    }
-
-    public Date getRegdate() {
-        return regdate;
-    }
-
     public Date getLastonline() {
         return lastonline;
+    }
+
+    public void setLastonline(Date lastonline) {
+        this.lastonline = lastonline;
     }
 
     public boolean isVerifiedAccount() {
         return verifiedAccount;
     }
 
+    public void setVerifiedAccount(boolean verifiedAccount) {
+        this.verifiedAccount = verifiedAccount;
+    }
+
     public UsersTypes getUserType() {
         return userType;
     }
 
-    public PaymentSystems getPaymentSystems() {
-        return paymentSystems;
+    public void setUserType(UsersTypes userType) {
+        this.userType = userType;
     }
 
-    public void setPaymentSystems(PaymentSystems paymentSystems) {
-        this.paymentSystems = paymentSystems;
-    }
+   
+  
 
-    
+ 
 }

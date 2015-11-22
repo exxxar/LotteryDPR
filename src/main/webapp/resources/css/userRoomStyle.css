@@ -448,7 +448,7 @@ li  img
 }
 
 .dilers .lotery b {
-    font-size:18pt;
+    font-size:14pt;
     color:RGB(100,10,10);
     font-family:'PT Sans Narrow';
     margin-right:10px;
@@ -458,7 +458,7 @@ li  img
 .dilers .lotery  p{
     text-align:left;
     color:white;
-    font-size:18pt;
+    font-size:14pt;
     line-height:100%;
     display:inline;
     font-family:'PT Sans Narrow',serif;

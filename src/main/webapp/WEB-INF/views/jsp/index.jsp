@@ -168,44 +168,60 @@
                     <form:form modelAttribute="user" method="POST" action="${regUrl}" class="all-fields">    
                         <div class="field w1-login">
                             <h1>
-                                ЛОГИН<b>*</b>
+                                ЛОГИН<b>*</b><br/>
+                                <p>(не менее 6 символов)</p>
                             </h1>
-                            <form:input type="text" placeholder="Введите логин" path="username" value="" name="login" class="paint-field" required="true"/>                        </div>
+                            <form:input type="text" placeholder="Введите логин" path="username" value="" 
+                                        name="login" class="paint-field" required="true" pattern="^[a-zA-Z0-9]{6,}"/>    
+                        </div>
                         <div class="field w1-email">
                             <h1>
-                                АДРЕС ЭЛЕКТРОННОЙ ПОЧТЫ<b>*</b>
+                                АДРЕС ЭЛЕКТРОННОЙ ПОЧТЫ<b>*</b><br/>
+                                <p>(example@example.com)</p>
                             </h1>
-                            <form:input type="email" placeholder="Введите e-mail" path="email" value="" name="email" class="paint-field" required="true"/>
+                            <form:input type="email" placeholder="Введите e-mail" path="email" value=""
+                                        name="email" class="paint-field" required="true"/>
                         </div>
                         <div class="field w1-surname">
                             <h1>
-                                ФАМИЛИЯ<b>*</b>
+                                ФАМИЛИЯ<b>*</b><br/>
+                                <p>(только на русском)</p>
+                                
                             </h1>
-                            <form:input type="text" placeholder="Введите фамилию" path="sname" value="" name="surname" class="paint-field" required="true"/>
+                            <form:input type="text" placeholder="Введите фамилию" path="sname" value=""
+                                        name="surname" class="paint-field" required="true" pattern="^[А-Яа-яЁё\s]+$"/>
                         </div>
                         <div class="field w1-name">
                             <h1>
-                                ИМЯ<b>*</b>
+                                ИМЯ<b>*</b><br/>
+                                <p>(только на русском)</p>
                             </h1>
-                            <form:input type="text" placeholder="Введите имя" value="" path="fname" name="name" class="paint-field" required="true"/>
+                            <form:input type="text" placeholder="Введите имя" value=""
+                                        path="fname" name="name" class="paint-field" required="true" pattern="^[А-Яа-яЁё\s]+$"/>
                         </div>
                         <div class="field w1-third-name">
                             <h1>
-                                ОТЧЕСТВО
+                                ОТЧЕСТВО<br/>
+                                <p>(только на русском)</p>
                             </h1>
-                            <form:input type="text" placeholder="Введите отчество" path="tname" value="" name="thirdname" class="paint-field" />
+                            <form:input type="text" placeholder="Введите отчество" path="tname" value=""
+                                        name="thirdname" class="paint-field" pattern="^[А-Яа-яЁё\s]+$"/>
                         </div>
                         <div class="field w1-password">
                             <h1>
-                                ПАРОЛЬ<b>*</b>
+                                ПАРОЛЬ<b>*</b><br/>
+                                <p>(не менее 6 символов)</p>
                             </h1>
-                            <form:input type="text" placeholder="Введите пароль" value="" path="password" name="password" class="paint-field" required="true"/>
+                            <form:input type="password" placeholder="Введите пароль" value=""
+                                        path="password" name="password" class="paint-field" required="true" pattern="[A-Za-z0-9]{6,}"/>
                         </div>
                         <div class="field w1-password-true">
                             <h1>
-                                ПОДТВЕРЖДЕНИЕ ПАРОЛЯ<b>*</b>
+                                ПОДТВЕРЖДЕНИЕ ПАРОЛЯ<b>*</b><br/>
+                                <p>(не менее 6 символов)</p>
                             </h1>
-                            <form:input type="text" placeholder="Повторите пароль" value="" path="confirmPassword" name="passwordtrue" class="paint-field" required="true"/>
+                            <form:input type="password" placeholder="Повторите пароль" value=""
+                                        path="confirmPassword" name="passwordtrue" class="paint-field" required="true" pattern="[A-Za-z0-9]{6,}"/>
                         </div>
                         <div class="capcha">
                             <%

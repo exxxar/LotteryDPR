@@ -13,11 +13,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Татьяна Юрченко
  */
+
+@Service("PaymentSystemServiceImpl")
 public class PaymentSystemServiceImpl implements PaymentSystemService{
 
     @Autowired //подгрузка репозитория
@@ -35,9 +38,9 @@ public class PaymentSystemServiceImpl implements PaymentSystemService{
     @Override
     public Users findUsersByPaymentSystems(PaymentSystems id) 
     {
-        TypedQuery query = em.createQuery("select p from paymentsystems p where p.id = ?1", PaymentSystems.class);
-        query.setParameter(1,id);
-        return ((PaymentSystems) query.getSingleResult()).getUserid();
+//        TypedQuery query = em.createQuery("select p from paymentsystems p where p.id = ?1", PaymentSystems.class);
+//        query.setParameter(1,id);
+        return null;
     }
 
     @Override

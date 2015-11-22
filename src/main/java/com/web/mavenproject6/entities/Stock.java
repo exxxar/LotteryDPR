@@ -38,6 +38,9 @@ public class Stock implements Serializable
     
     private Date comingdate;
 
+    @OneToOne
+    private BasketLog basketLog;
+
     public Long getId() {
         return id;
     }
@@ -93,7 +96,15 @@ public class Stock implements Serializable
     public void setComingdate(Date comingdate) {
         this.comingdate = comingdate;
     }
-    
-    
+
+    public BasketLog getBasketLog() {
+        return basketLog;
+    }
+
+    public void setBasketLog(BasketLog basketLog) {
+        this.basketLog = basketLog;
+    }
+
+  
     
 }

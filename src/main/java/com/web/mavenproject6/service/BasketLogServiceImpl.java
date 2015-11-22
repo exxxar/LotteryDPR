@@ -30,7 +30,7 @@ public class BasketLogServiceImpl implements BasketLogService {
     private EntityManager em; //запросы
 
     @Override
-    public Date getAddDate(BasketLog id) 
+    public long getAddDate(BasketLog id) 
     {
         TypedQuery query = em.createQuery("select b from basketlog b where b.id = ?1", BasketLog.class);
         query.setParameter(1, id);
@@ -38,7 +38,7 @@ public class BasketLogServiceImpl implements BasketLogService {
     }
 
     @Override
-    public Date getEndDate(BasketLog id) 
+    public long getEndDate(BasketLog id) 
     {
         TypedQuery query = em.createQuery("select b from basketlog b where b.id = ?1", BasketLog.class);
         query.setParameter(1, id);
@@ -69,7 +69,7 @@ public class BasketLogServiceImpl implements BasketLogService {
     {
         TypedQuery query = em.createQuery("select b from basketlog b where b.id = ?1", BasketLog.class);
         query.setParameter(1,basketlogid );
-        return ((BasketLog) query.getSingleResult()).getUser();
+        return null;
     }
 
 }

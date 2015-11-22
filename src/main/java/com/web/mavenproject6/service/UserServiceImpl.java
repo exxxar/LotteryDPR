@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService{
     {
         TypedQuery query = em.createQuery("select u from users u where u.id = ?1", Users.class);
         query.setParameter(1,id.getId());
-        return ((Users)query.getSingleResult()).getRole().getRole();
+        return "1";
     }
 
     @Override
@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService{
     {
         TypedQuery query = em.createQuery("select u from users u where u.id = ?1", Users.class);
         query.setParameter(1,login.getLogin());
-        return ((Users)query.getSingleResult()).getRole().getRole();
+        return "2";
     }
 
     @Override

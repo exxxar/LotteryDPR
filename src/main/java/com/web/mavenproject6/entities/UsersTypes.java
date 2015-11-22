@@ -25,7 +25,10 @@ public class UsersTypes implements Serializable
     private Long id;
 
     private String TypeName;
-    
+  
+    @OneToOne
+    private Users user;
+
     public Long getId() {
         return id;
     }
@@ -41,4 +44,14 @@ public class UsersTypes implements Serializable
     public void setTypeName(String TypeName) {
         this.TypeName = TypeName;
     }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+    
+    
 }

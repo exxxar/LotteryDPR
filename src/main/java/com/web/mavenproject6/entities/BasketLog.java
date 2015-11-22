@@ -24,16 +24,15 @@ public class BasketLog implements Serializable
     @Column(name = "id", nullable = false)
     private Long id;
     
-    @ManyToOne
-    private Users user;
+    private long userId;
     
     private String winnings;
-    private Date adddate;
-    private Date enddate;
+    private long adddate;
+    private long enddate;
     
-    
-    @OneToOne
-    private Stock item;
+    @OneToOne(mappedBy = "basketLog",cascade = CascadeType.ALL)
+    private Stock stock;
+  
 
     public Long getId() {
         return id;
@@ -43,13 +42,7 @@ public class BasketLog implements Serializable
         this.id = id;
     }
 
-    public Users getUser() {
-        return user;
-    }
-
-    public void setUser(Users user) {
-        this.user = user;
-    }
+ 
 
     public String getWinnings() {
         return winnings;
@@ -59,29 +52,42 @@ public class BasketLog implements Serializable
         this.winnings = winnings;
     }
 
-    public Stock getItem() {
-        return item;
-    }
-
-    public void setItem(Stock item) {
-        this.item = item;
-    }
-
-    public Date getAdddate() {
+    public long getAdddate() {
         return adddate;
     }
 
-    public Date getEnddate() {
-        return enddate;
-    }
-
-    public void setAdddate(Date adddate) {
+    public void setAdddate(long adddate) {
         this.adddate = adddate;
     }
 
-    public void setEnddate(Date enddate) {
+    public long getEnddate() {
+        return enddate;
+    }
+
+    public void setEnddate(long enddate) {
         this.enddate = enddate;
     }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
+    }
+
+ 
+
+ 
+
     
     
 }

@@ -2,6 +2,7 @@
 package com.web.mavenproject6.controller;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
- * @author Татьяна Юрченко
+ * @author ������� �������
  */
 @Controller
 public class LotteryController {
@@ -33,8 +34,9 @@ public class LotteryController {
 
     @RequestMapping(value = {"/lottery"})
     public String getLotteryMainPage() {
-        return "jsp/index";
+        return "jsp/playLottery";
     }
+  
 
     @RequestMapping(value = {"/userroom"})
     public String getLotteryUserRoom() {
@@ -76,7 +78,7 @@ public class LotteryController {
                 }
                 obj.put("paymentType", paymentType);
                 obj.put("paymentNum", (long) (Math.random() * 100000000));
-                obj.put("balance", "230р 50коп.");//
+                obj.put("balance", "230� 50���.");//
                 ar.add(obj);
             }
             o.put("payment", ar);
@@ -102,12 +104,12 @@ public class LotteryController {
 
             JSONObject obj = new JSONObject();
 
-            obj.put("balance", "2000р");
+            obj.put("balance", "2000�");
             obj.put("discont", "20%");
-            obj.put("ticketCount", "1000шт");
-            obj.put("allTicketCount", "1560шт");//
-            obj.put("fio", "Казякин Семко Албрехтович");//
-            obj.put("age", "33 ГОДА");//
+            obj.put("ticketCount", "1000��");
+            obj.put("allTicketCount", "1560��");//
+            obj.put("fio", "������� ����� �����������");//
+            obj.put("age", "33 ����");//
             obj.put("tel", "8-800-500-0-501");
             obj.put("email", "dodod@GMAIL.COM");
 
@@ -115,10 +117,9 @@ public class LotteryController {
         }
         return "not ok";
     }
-
-    @ResponseBody
+@ResponseBody
     @RequestMapping(value = "/getUserPhoto", method = RequestMethod.GET)
-    public BufferedImage getUserPhoto() throws IOException {
+    public byte[] getUserPhoto() throws IOException {
         BufferedImage img;
         InputStream in;
 
@@ -127,16 +128,48 @@ public class LotteryController {
             UserDetails userDetail = (UserDetails) auth.getPrincipal();
 
             in = servletContext.getResourceAsStream("/resources/img/avatar.jpg");
+            
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	
             img = ImageIO.read(in);
-            return img;
+            ImageIO.write( img, "jpg", baos );
+            baos.flush();
+            byte[] imageInByte = baos.toByteArray();
+            baos.close();
+            return imageInByte;
         }
 
         in = servletContext.getResourceAsStream("/resources/img/avatar.jpg");
         img = ImageIO.read(in);
-
-        return img;
+ ByteArrayOutputStream baos = new ByteArrayOutputStream();
+         ImageIO.write( img, "jpg", baos );
+            baos.flush();
+            byte[] imageInByte = baos.toByteArray();
+            baos.close();
+            return imageInByte;
 
     }
+//    @ResponseBody
+//    @RequestMapping(value = "/getUserPhoto", method = RequestMethod.GET)
+//    public BufferedImage getUserPhoto() throws IOException {
+//        BufferedImage img;
+//        InputStream in;
+//
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        if (!(auth instanceof AnonymousAuthenticationToken)) {
+//            UserDetails userDetail = (UserDetails) auth.getPrincipal();
+//
+//            in = servletContext.getResourceAsStream("/resources/img/avatar.jpg");
+//            img = ImageIO.read(in);
+//            return img;
+//        }
+//
+//        in = servletContext.getResourceAsStream("/resources/img/avatar.jpg");
+//        img = ImageIO.read(in);
+//
+//        return img;
+//
+//    }
 
     @ResponseBody
     @RequestMapping(value = "/getTickets", method = RequestMethod.POST)
@@ -157,9 +190,9 @@ public class LotteryController {
             JSONObject obj = new JSONObject();
 
             obj.put("id", "1");
-            obj.put("name", "НАЦИОНАЛЬНАЯ ЛОТЕРЕЯ ДНР");
-            obj.put("title", "100% ПОБЕДА");
-            obj.put("price", "100р");//            
+            obj.put("name", "������������ ������� ���");
+            obj.put("title", "100% ������");
+            obj.put("price", "100�");//            
             obj.put("adddate","01.05.2015");//
             obj.put("enddate", "01.06.2015");// 
             obj.put("isOpend", "false");
@@ -182,7 +215,7 @@ public class LotteryController {
     @ResponseBody
     @RequestMapping(value = "/selectAllTikets", method = RequestMethod.GET)
     public String selectAllUserTikets() {
-        //выделение всех чекбоксов
+        //��������� ���� ���������
         return "";
     }
 

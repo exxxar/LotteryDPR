@@ -114,7 +114,8 @@
             });
 
             $(".open-lottery").click(function() {
-                $(".win-9").css({"display": "block"});
+                   var myWin = open("./lottery", "displayWindow",
+                        "width=700,height=550,status=no,toolbar=no,menubar=no");
             });
             getUserInfo();
         });
@@ -245,7 +246,7 @@
                                         <div class="checkbox">
                                             <input id="check2" type="checkbox" name="check" value="check1">
                                             <label for="check2">
-                                                 <input type="hidden" value="" class="tid"/>
+                                                <input type="hidden" value="" class="tid"/>
                                                 <input type="hidden" value="" class="tname"/>
                                                 <input type="hidden" value="" class="ttitle"/>
                                                 <input type="hidden" value="" class="tprice"/>
@@ -261,7 +262,7 @@
                                         <div class="checkbox">
                                             <input id="check3" type="checkbox" name="check" value="check1">
                                             <label for="check3">
-                                                 <input type="hidden" value="" class="tid"/>
+                                                <input type="hidden" value="" class="tid"/>
                                                 <input type="hidden" value="" class="tname"/>
                                                 <input type="hidden" value="" class="ttitle"/>
                                                 <input type="hidden" value="" class="tprice"/>
@@ -288,7 +289,7 @@
                                         <div class="checkbox">
                                             <input id="check5" type="checkbox" name="check" value="check1">
                                             <label for="check5">
-                                                 <input type="hidden" value="" class="tid"/>
+                                                <input type="hidden" value="" class="tid"/>
                                                 <input type="hidden" value="" class="tname"/>
                                                 <input type="hidden" value="" class="ttitle"/>
                                                 <input type="hidden" value="" class="tprice"/>
@@ -316,7 +317,7 @@
                                         <div class="checkbox">
                                             <input id="check7" type="checkbox" name="check" value="check1">
                                             <label for="check7">
-                                                 <input type="hidden" value="" class="tid"/>
+                                                <input type="hidden" value="" class="tid"/>
                                                 <input type="hidden" value="" class="tname"/>
                                                 <input type="hidden" value="" class="ttitle"/>
                                                 <input type="hidden" value="" class="tprice"/>
@@ -334,7 +335,7 @@
                                         <div class="checkbox">
                                             <input id="check8" type="checkbox" name="check" value="check1">
                                             <label for="check8">
-                                                 <input type="hidden" value="" class="tid"/>
+                                                <input type="hidden" value="" class="tid"/>
                                                 <input type="hidden" value="" class="tname"/>
                                                 <input type="hidden" value="" class="ttitle"/>
                                                 <input type="hidden" value="" class="tprice"/>
@@ -530,31 +531,13 @@
                 <img class="exit-modal" src="<c:url value="/resources/img/close.png"/>"/>
                 <h1>РЕФЕРАЛЬНАЯ ПРОГРАММА</h1>               
             </div>
-        </div>
+        </div>     
 
-        <div class="shadow-box win-9" style="display:none"  >
-            <div class="window-1">
+        <div class="shadow-box win-error" style="display:none"  >
+            <div class="window-error">
                 <img class="exit-modal" src="<c:url value="/resources/img/close.png"/>"/>
-                <h1>ПОЛУЧИТЬ БИЛЕТЫ</h1>
-                <div class="scene">
-                    <div class="eagle">
-                        <div class="eagle-body"></div>
-                        <div class="eagle-left"></div>
-                        <div class="eagle-right"></div>
-                    </div>
-                </div>
-                <label for="selector">Количество билетов</label>
-                <select id="selector">
-                    <option var="1">1</option>
-                    <option var="2">2</option>
-                    <option var="5">5</option>
-                    <option var="10">10</option>
-                    <option var="20">20</option>
-                    <option var="50">50</option>
-                    <option var="100">100</option>
-                    <option var="1000">1000</option>
-                    <option var="5000">5000</option>
-                </select>
+                <h1>СООБЩЕНИЕ ОБ ОШИБКЕ</h1>
+                <p>404 Сообщение об ошибке</p>
                 <input type="button" class="button-1 w2" value="ПОЛУЧИТЬ">
             </div>
         </div>

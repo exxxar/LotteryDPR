@@ -18,9 +18,9 @@ import java.util.List;
  */
 public interface BasketLogService 
 {
-    Date getAddDate(BasketLog id);
+    long getAddDate(BasketLog id);
     
-    Date getEndDate(BasketLog id);
+    long getEndDate(BasketLog id);
     
     void setDate(Date d);
     

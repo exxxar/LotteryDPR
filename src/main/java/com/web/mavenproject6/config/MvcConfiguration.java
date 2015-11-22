@@ -184,7 +184,8 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Schedul
     @Bean
     public HandlerExceptionResolver simpleMappingExceptionResolver() {
         SimpleMappingExceptionResolver resolver = new SimpleMappingExceptionResolver();
-        resolver.setDefaultErrorView("thy/error/exception");
+        resolver.setExceptionAttribute("message");
+        resolver.setDefaultErrorView("jsp/error");
         return resolver;
     }
 

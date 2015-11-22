@@ -1,4 +1,9 @@
-
+.field h1 p {
+    color:gray;
+    font-size:10pt;
+    line-height: 100%;
+    font-style: italic;
+}
 .online-block {
     position: fixed;
     top:0px;
@@ -40,12 +45,10 @@
     margin:0 auto;
     width:950px;
     min-height: 500px;
-    //border:10px rgba(255,255,255,0.5) solid;
     top:100px;
 }
 body {
     line-height: 1;
-    //overflow-x:hidden;
     background: url("../img/coins.jpg") no-repeat center;
 }
 
@@ -333,7 +336,7 @@ ul li a
 .window-1
 {
     width: 430px;
-    height: 630px;
+    height: 650px;
     top: 00px;
     position: relative;
     margin: 0 auto;
@@ -343,7 +346,7 @@ ul li a
 
 }
 
-.window-1 > img
+.exit-modal
 {
     width: 20px;
     height: 20px;
@@ -351,7 +354,6 @@ ul li a
     top: 0px;
     left: 390px;
     padding:10px;
-    //border: 1px green solid;
 }
 
 
@@ -478,6 +480,7 @@ ul li a
     width: 190px;
     height: 80px;	
     //border: 1px green solid;
+    margin-top: 5px;
 }
 
 .field > h1
@@ -671,6 +674,7 @@ hr
     height: 2px;
     border: none;
     background: white;
+    margin-top: 15px;
 }
 
 .all-img-w2
