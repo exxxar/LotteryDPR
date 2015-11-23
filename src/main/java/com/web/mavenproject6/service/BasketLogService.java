@@ -18,17 +18,7 @@ import java.util.List;
  */
 public interface BasketLogService 
 {
-    long getAddDate(BasketLog id);
-    
-    long getEndDate(BasketLog id);
-    
-    void setDate(Date d);
-    
-    BasketRepository getRepository();
-    
-    List<BasketLog> findBasketLogByUsers(Users user);
-
-    Users findUsersByBasketLog(BasketLog basketlogid);
-    
+      
+    BasketRepository getRepository(); 
     
 }

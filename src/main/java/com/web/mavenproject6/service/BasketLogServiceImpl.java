@@ -30,46 +30,9 @@ public class BasketLogServiceImpl implements BasketLogService {
     private EntityManager em; //запросы
 
     @Override
-    public long getAddDate(BasketLog id) 
-    {
-        TypedQuery query = em.createQuery("select b from basketlog b where b.id = ?1", BasketLog.class);
-        query.setParameter(1, id);
-        return ((BasketLog) query.getSingleResult()).getAdddate();
-    }
-
-    @Override
-    public long getEndDate(BasketLog id) 
-    {
-        TypedQuery query = em.createQuery("select b from basketlog b where b.id = ?1", BasketLog.class);
-        query.setParameter(1, id);
-        return ((BasketLog) query.getSingleResult()).getEnddate();
-    }
-
-    @Override
-    public void setDate(Date d) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public BasketRepository getRepository() 
     {
         return basketRepository;
     }
-
-    @Override
-    public List<BasketLog> findBasketLogByUsers(Users user) 
-    {
-        TypedQuery query = em.createQuery("select b from basketlog b where b.user.id = ?1", BasketLog.class);
-        query.setParameter(1, user.getId());
-        return (List<BasketLog>) query.getResultList();
-    }
-
-    @Override
-    public Users findUsersByBasketLog(BasketLog basketlogid) 
-    {
-        TypedQuery query = em.createQuery("select b from basketlog b where b.id = ?1", BasketLog.class);
-        query.setParameter(1,basketlogid );
-        return null;
-    }
-
+  
 }

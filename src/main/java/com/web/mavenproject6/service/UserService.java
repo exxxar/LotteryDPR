@@ -16,28 +16,28 @@ import java.util.List;
  */
 public interface UserService 
 {
-    boolean isUserExistByEmail(String email);
-    boolean isUserExistByLogin(String login);
-    
-    void save(Users u);
-
-    void remove(Users u);
-
-    void remove(long id);
-
-    void update(Users u);
-    
-    Users getinfo(Users id);
-    
-    Long getNumberOfWallets(Users id);
-    
-    List<String> getWallets(Users login);
-    
-    List<PaymentSystems> getWalletNumber(Users id);
-    
-    String getUserRole(Users id);
-    
-    String getUserRoleByLogin(Users login);
+//    boolean isUserExistByEmail(String email);
+//    boolean isUserExistByLogin(String login);
+//    
+//    void save(Users u);
+//
+//    void remove(Users u);
+//
+//    void remove(long id);
+//
+//    void update(Users u);
+//    
+//    Users getinfo(Users id);
+//    
+//    Long getNumberOfWallets(Users id);
+//    
+//    List<String> getWallets(Users login);
+//    
+//    List<PaymentSystems> getWalletNumber(Users id);
+//    
+//    String getUserRole(Users id);
+//    
+//    String getUserRoleByLogin(Users login);
     
     UserRepository getRepository();
 }

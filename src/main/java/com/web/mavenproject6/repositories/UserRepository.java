@@ -7,29 +7,20 @@ package com.web.mavenproject6.repositories;
 
 import com.web.mavenproject6.entities.Users;
 import java.lang.annotation.Documented;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 
 /**
  *
  * @author Aleks
  */
-public interface UserRepository extends CrudRepository<Users, Long>{
+public interface UserRepository extends JpaRepository<Users, Long> {
 
-
-    String findPasswordByLogin(String login);
-
-    String findPasswordByEmail(String email);
-
-    String findEmailByLogin(String login);
-
-    String findLoginByEmail(String email);
-
-    //Users - имя таблицы. подрозумевает 1го пользователя
     Users findUsersByLogin(String login);
 
     Users findUsersByEmail(String email);
-    
+
     Users findUsersById(long id);
 
-    Users findUsersByLoginOrEmail(String login, String email);    
+    Users findUsersByLoginOrEmail(String login, String email);
 }

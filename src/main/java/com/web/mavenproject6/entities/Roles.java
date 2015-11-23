@@ -6,10 +6,7 @@
 package com.web.mavenproject6.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.util.List;
 import javax.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
 /**
  *

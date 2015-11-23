@@ -8,13 +8,14 @@ package com.web.mavenproject6.repositories;
 import com.web.mavenproject6.entities.BasketLog;
 import com.web.mavenproject6.entities.Roles;
 import com.web.mavenproject6.entities.Stock;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
 /**
  *
  * @author Татьяна Юрченко
  */
-public interface StockRepository extends CrudRepository<Stock, Long>
-{
+public interface StockRepository extends JpaRepository<Stock, Long> {
 
+    Stock findStockByBasketLog(BasketLog basketLog);
 }

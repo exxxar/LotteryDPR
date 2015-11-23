@@ -34,10 +34,10 @@ public class UserDetailsServiceImpl implements UserDetailsService
     @Autowired
     private UserRepository userRepository;
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         try {
-            System.out.print("TestindData: "+email);
-            Users domainUser = userRepository.findUsersByEmail(email);
+            System.out.print("TestindData: "+login);
+            Users domainUser = userRepository.findUsersByLogin(login);
             System.out.print("TestindData: " + domainUser.getLogin() + ' ' + domainUser.getPassword());
 
             boolean accountNonExpired = true;
@@ -51,7 +51,7 @@ public class UserDetailsServiceImpl implements UserDetailsService
                     accountNonExpired,
                     credentialsNonExpired,
                     accountNonLocked,
-                    getAuthorities(1));
+                    getAuthorities(2));
         }
         catch (Exception e) 
         {   

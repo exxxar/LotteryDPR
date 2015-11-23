@@ -17,8 +17,4 @@ import java.util.List;
 public interface PaymentSystemService 
 {
     PaymentRepository getRepository();
-    
-    Users findUsersByPaymentSystems(PaymentSystems id);
-    
-    List<PaymentSystems> findPaymentSystemsByUsers(Users user);
 }

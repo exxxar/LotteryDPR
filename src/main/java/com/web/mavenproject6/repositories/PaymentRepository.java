@@ -6,16 +6,15 @@
 package com.web.mavenproject6.repositories;
 
 import com.web.mavenproject6.entities.PaymentSystems;
-import com.web.mavenproject6.entities.Roles;
-import com.web.mavenproject6.entities.Users;
 import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
 /**
  *
  * @author Татьяна Юрченко
  */
-public interface PaymentRepository extends CrudRepository<PaymentSystems, Long>
+public interface PaymentRepository extends JpaRepository<PaymentSystems, Long>
 {
-
+     List<PaymentSystems> findPaymentSystemsByUserId(long userId);
 }

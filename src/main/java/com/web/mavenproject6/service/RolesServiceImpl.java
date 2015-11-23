@@ -33,30 +33,6 @@ public class RolesServiceImpl implements RolesService{
     public RolesRepository getRepository() 
     {
         return rolesRepository;
-    }
-
-    @Override
-    public Roles findRolesByUsers(Users user) 
-    {
-        TypedQuery query = em.createQuery("select r from roles r where r.user.id = ?1", Roles.class);
-        query.setParameter(1,user.getId());
-        return ((Roles) query.getSingleResult());
-    }
-
-    @Override
-    public List<Users> findUsersByRoles(Roles role) 
-    {
-        TypedQuery query = em.createQuery("select r from roles r where r.role.id = ?1", Roles.class);
-        query.setParameter(1, role.getId());
-        return (List<Users>) query.getResultList();
-    }
-
-    @Override
-    public Roles findRolesByUsersId(Long id) 
-    {
-        TypedQuery query = em.createQuery("select r from roles r where r.user.id = ?1", Roles.class);
-        query.setParameter(1,id);
-        return ((Roles) query.getSingleResult());
-    }
+    }   
     
 }

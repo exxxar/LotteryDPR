@@ -15,14 +15,7 @@ import java.util.List;
  * @author Татьяна Юрченко
  */
 public interface StockService 
-{
-    Stock getItemInfo(Stock id);
-    
-    List<Stock> getAllItemInfo(Stock id);
-    
+{    
     StockRepository getRepository();
-    
-    BasketLog findBasketLogByStock(Stock id);
-    
-    Stock findStockLogByBasketLog(BasketLog id);
+
 }

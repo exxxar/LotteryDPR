@@ -34,21 +34,21 @@ public class PaymentSystemServiceImpl implements PaymentSystemService{
     {        
         return paymentRepository;
     }
-
-    @Override
-    public Users findUsersByPaymentSystems(PaymentSystems id) 
-    {
-//        TypedQuery query = em.createQuery("select p from paymentsystems p where p.id = ?1", PaymentSystems.class);
-//        query.setParameter(1,id);
-        return null;
-    }
-
-    @Override
-    public List<PaymentSystems> findPaymentSystemsByUsers(Users user) 
-    {
-        TypedQuery query = em.createQuery("select p from paymentsystems p where b.user.id = ?1", PaymentSystems.class);
-        query.setParameter(1, user.getId());
-        return (List<PaymentSystems>) query.getResultList();
-    }
-    
+//
+//    @Override
+//    public Users findUsersByPaymentSystems(PaymentSystems id) 
+//    {
+////        TypedQuery query = em.createQuery("select p from paymentsystems p where p.id = ?1", PaymentSystems.class);
+////        query.setParameter(1,id);
+//        return null;
+//    }
+//
+//    @Override
+//    public List<PaymentSystems> findPaymentSystemsByUsers(Users user) 
+//    {
+//        TypedQuery query = em.createQuery("select p from paymentsystems p where b.user.id = ?1", PaymentSystems.class);
+//        query.setParameter(1, user.getId());
+//        return (List<PaymentSystems>) query.getResultList();
+//    }
+//    
 }

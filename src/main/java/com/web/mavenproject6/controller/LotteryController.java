@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Date;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import org.json.JSONException;

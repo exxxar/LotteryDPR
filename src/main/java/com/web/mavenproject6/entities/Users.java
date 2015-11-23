@@ -7,9 +7,7 @@ package com.web.mavenproject6.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.List;
 import javax.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
 /**
  *
@@ -30,8 +28,8 @@ public class Users implements Serializable {
     private String password;
     private Long numberoftikets;
     private Long discount;
-    private Date regdate;
-    private Date lastonline;
+    private long regdate;
+    private long lastonline;
     private boolean verifiedAccount;
     
     @Column(unique = true)
@@ -40,12 +38,6 @@ public class Users implements Serializable {
 
     @OneToOne(mappedBy = "user", cascade = {CascadeType.ALL})
     private UsersTypes userType;
-
-//    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-//    private personal person;
-//
-//    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-//    private SecurityCode securityCode;
 
     private boolean accountExpired;
     private boolean accountLocked;
@@ -162,19 +154,19 @@ public class Users implements Serializable {
         this.discount = discount;
     }
 
-    public Date getRegdate() {
+    public long getRegdate() {
         return regdate;
     }
 
-    public void setRegdate(Date regdate) {
+    public void setRegdate(long regdate) {
         this.regdate = regdate;
     }
 
-    public Date getLastonline() {
+    public long getLastonline() {
         return lastonline;
     }
 
-    public void setLastonline(Date lastonline) {
+    public void setLastonline(long lastonline) {
         this.lastonline = lastonline;
     }
 

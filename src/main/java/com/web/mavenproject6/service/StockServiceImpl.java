@@ -26,42 +26,11 @@ public class StockServiceImpl implements StockService{
     @PersistenceContext
     private EntityManager em; //запросы
     
-    @Override
-    public Stock getItemInfo(Stock id) 
-    {
-        TypedQuery query = em.createQuery("select s from stock s where s.id = ?1", Stock.class);
-        query.setParameter(1,id);
-        return ((Stock) query.getSingleResult());
-    }
-
+   
     @Override
     public StockRepository getRepository() 
     {
         return stockRepository;
     }
 
-    @Override
-    public BasketLog findBasketLogByStock(Stock id) 
-    {
-        TypedQuery query = em.createQuery("select s from stock s where s.id = ?1", Stock.class);
-        query.setParameter(1,id);
-        return ((BasketLog) query.getSingleResult());
-    }
-
-    @Override
-    public Stock findStockLogByBasketLog(BasketLog id) 
-    {
-        TypedQuery query = em.createQuery("select s from stock s where s.id = ?1", Stock.class);
-        query.setParameter(1,id);
-        return ((Stock) query.getSingleResult());
-    }
-
-    @Override
-    public List<Stock> getAllItemInfo(Stock id) 
-    {
-        TypedQuery query = em.createQuery("select s from stock s where s.id = ?1", Stock.class);
-        query.setParameter(1, id);
-        return (List<Stock>) query.getResultList();
-    }
-    
 }

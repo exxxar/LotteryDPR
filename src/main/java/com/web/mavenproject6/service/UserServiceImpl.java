@@ -29,93 +29,93 @@ public class UserServiceImpl implements UserService{
     @PersistenceContext
     private EntityManager em; //запросы
       
-    @Override
-    public boolean isUserExistByEmail(String email) 
-    {
-        TypedQuery query = em.createQuery("select u from users u where u.email = ?1", Users.class);
-        query.setParameter(1,email);
-        return  query.getSingleResult()!=null;
-    }
-
-    @Override
-    public boolean isUserExistByLogin(String login) 
-    {
-        TypedQuery query = em.createQuery("select u from users u where u.login = ?1", Users.class);
-        query.setParameter(1,login);
-        return  query.getSingleResult()!=null;
-    }
-
-    @Override
-    public void save(Users u) 
-    {
-        em.persist(u);
-    }
-
-    @Override
-    public void remove(Users u) 
-    {
-        em.remove(u);
-    }
-
-    @Override
-    public void remove(long id) 
-    {
-        em.remove(id);
-    }
-
-    @Override
-    public void update(Users u) 
-    {
-        em.refresh(u);
-    }
-
-    @Override
-    public Users getinfo(Users id) 
-    {
-        TypedQuery query = em.createQuery("select u from users u where u.id = ?1", Users.class);
-        query.setParameter(1,id.getId());
-        return ((Users) query.getSingleResult());
-    }
-
-    @Override
-    public Long getNumberOfWallets(Users id) 
-    {
-        TypedQuery query = em.createQuery("select u from users u where u.id = ?1", Users.class);
-        query.setParameter(1,id.getId());
-        return (long)query.getMaxResults();
-    }
-
-    @Override
-    public List<String> getWallets(Users login) 
-    {
-        TypedQuery query = em.createQuery("select u from users u where u.user.login = ?1", Users.class);
-        query.setParameter(1, login.getLogin());
-        return (List<String>) query.getResultList();
-    }
-
-    @Override
-    public List<PaymentSystems> getWalletNumber(Users id) 
-    {
-        TypedQuery query = em.createQuery("select u from users u where u.id = ?1", Users.class);
-        query.setParameter(1,id.getId());
-        return (List<PaymentSystems>) query.getResultList();
-    }
-
-    @Override
-    public String getUserRole(Users id) 
-    {
-        TypedQuery query = em.createQuery("select u from users u where u.id = ?1", Users.class);
-        query.setParameter(1,id.getId());
-        return "1";
-    }
-
-    @Override
-    public String getUserRoleByLogin(Users login) 
-    {
-        TypedQuery query = em.createQuery("select u from users u where u.id = ?1", Users.class);
-        query.setParameter(1,login.getLogin());
-        return "2";
-    }
+//    @Override
+//    public boolean isUserExistByEmail(String email) 
+//    {
+//        TypedQuery query = em.createQuery("select u from users u where u.email = ?1", Users.class);
+//        query.setParameter(1,email);
+//        return  query.getSingleResult()!=null;
+//    }
+//
+//    @Override
+//    public boolean isUserExistByLogin(String login) 
+//    {
+//        TypedQuery query = em.createQuery("select u from users u where u.login = ?1", Users.class);
+//        query.setParameter(1,login);
+//        return  query.getSingleResult()!=null;
+//    }
+//
+//    @Override
+//    public void save(Users u) 
+//    {
+//        em.persist(u);
+//    }
+//
+//    @Override
+//    public void remove(Users u) 
+//    {
+//        em.remove(u);
+//    }
+//
+//    @Override
+//    public void remove(long id) 
+//    {
+//        em.remove(id);
+//    }
+//
+//    @Override
+//    public void update(Users u) 
+//    {
+//        em.refresh(u);
+//    }
+//
+//    @Override
+//    public Users getinfo(Users id) 
+//    {
+//        TypedQuery query = em.createQuery("select u from users u where u.id = ?1", Users.class);
+//        query.setParameter(1,id.getId());
+//        return ((Users) query.getSingleResult());
+//    }
+//
+//    @Override
+//    public Long getNumberOfWallets(Users id) 
+//    {
+//        TypedQuery query = em.createQuery("select u from users u where u.id = ?1", Users.class);
+//        query.setParameter(1,id.getId());
+//        return (long)query.getMaxResults();
+//    }
+//
+//    @Override
+//    public List<String> getWallets(Users login) 
+//    {
+//        TypedQuery query = em.createQuery("select u from users u where u.user.login = ?1", Users.class);
+//        query.setParameter(1, login.getLogin());
+//        return (List<String>) query.getResultList();
+//    }
+//
+//    @Override
+//    public List<PaymentSystems> getWalletNumber(Users id) 
+//    {
+//        TypedQuery query = em.createQuery("select u from users u where u.id = ?1", Users.class);
+//        query.setParameter(1,id.getId());
+//        return (List<PaymentSystems>) query.getResultList();
+//    }
+//
+//    @Override
+//    public String getUserRole(Users id) 
+//    {
+//        TypedQuery query = em.createQuery("select u from users u where u.id = ?1", Users.class);
+//        query.setParameter(1,id.getId());
+//        return "1";
+//    }
+//
+//    @Override
+//    public String getUserRoleByLogin(Users login) 
+//    {
+//        TypedQuery query = em.createQuery("select u from users u where u.id = ?1", Users.class);
+//        query.setParameter(1,login.getLogin());
+//        return "2";
+//    }
 
     @Override
     public UserRepository getRepository() 

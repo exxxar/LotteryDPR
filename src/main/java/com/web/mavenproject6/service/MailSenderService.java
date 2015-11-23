@@ -11,7 +11,6 @@ package com.web.mavenproject6.service;
  */
 
 
-import com.web.mavenproject6.entities.Users;
 import com.web.mavenproject6.forms.MailForm;
 import java.util.HashMap;
 import java.util.Map;

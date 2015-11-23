@@ -16,11 +16,5 @@ import java.util.List;
  */
 public interface RolesService 
 {
-    RolesRepository getRepository();
-         
-    Roles findRolesByUsers(Users user);
-    
-    List<Users> findUsersByRoles(Roles role);
-    
-    Roles findRolesByUsersId(Long id);
+    RolesRepository getRepository();     
 }

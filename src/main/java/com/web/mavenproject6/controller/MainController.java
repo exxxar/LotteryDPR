@@ -6,11 +6,7 @@
 package com.web.mavenproject6.controller;
 
 import com.web.mavenproject6.forms.UserForm;
-import com.web.mavenproject6.other.UserSessionComponent;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
