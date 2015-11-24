@@ -31,6 +31,7 @@ public class Users implements Serializable {
     private long regdate;
     private long lastonline;
     private boolean verifiedAccount;
+    private double summaryCash;
     
     @Column(unique = true)
     private String login;
@@ -184,6 +185,14 @@ public class Users implements Serializable {
 
     public void setUserType(UsersTypes userType) {
         this.userType = userType;
+    }
+
+    public double getSummaryCash() {
+        return summaryCash;
+    }
+
+    public void setSummaryCash(double summaryCash) {
+        this.summaryCash = summaryCash;
     }
 
    

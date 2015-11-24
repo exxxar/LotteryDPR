@@ -19,13 +19,9 @@ public class PaymentSystems implements Serializable
       @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private Long id;
-    
-
-   
-    private long userId;
-    
-    private Long walletnumber;
+    private Long id;   
+    private long userId;    
+    private double cash;
     private Long typeofwallet;
 
     public Long getId() {
@@ -34,22 +30,6 @@ public class PaymentSystems implements Serializable
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-//    public Users getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(Users user) {
-//        this.user = user;
-//    }
-
-    public Long getWalletnumber() {
-        return walletnumber;
-    }
-
-    public void setWalletnumber(Long walletnumber) {
-        this.walletnumber = walletnumber;
     }
 
     public Long getTypeofwallet() {
@@ -66,6 +46,14 @@ public class PaymentSystems implements Serializable
 
     public void setUserId(long userId) {
         this.userId = userId;
+    }
+
+    public double getCash() {
+        return cash;
+    }
+
+    public void setCash(double cash) {
+        this.cash = cash;
     }
 
    

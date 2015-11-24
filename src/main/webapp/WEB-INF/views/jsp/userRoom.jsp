@@ -114,9 +114,18 @@
             });
 
             $(".open-lottery").click(function() {
-                   var myWin = open("./lottery", "displayWindow",
+                var myWin = open("./lottery", "Lottery Window",
                         "width=700,height=550,status=no,toolbar=no,menubar=no");
             });
+
+            $(".w-pay").click(function() {
+                var csrf = $("#_csrf").val();
+                var myWin = null;
+                if ($("#moneyBagId").val().length > 0)
+                    myWin = open("./pay?money=" + $("#moneyBagId").val() + "&paymentType=" + $("#paymentSystem").val() + "&_csrf=" + csrf, "PaymentWindow",
+                            "width=700,height=550");
+            });
+
             getUserInfo();
         });
         var getUserInfo = function() {
@@ -431,13 +440,14 @@
             <div class="window-1">
                 <img class="exit-modal" src="<c:url value="/resources/img/close.png"/>"/>
                 <h1>КОШЕЛЬКИ</h1>
-                <select name="paymantSystem" class="paymentSystem">
-                    <option var="1">Qiwi Wallet</option>
-                    <option var="2">Yandex Деньги</option>
-                    <option var="3">WebMoney</option>
-                </select>  
-                <input type="text" value="" name="moneyBag" id="moneyBagId" placeholder="Ваш номер кошелька"/>
-                <input type="button" class="button-1 w1" value="ДОБАВИТЬ">
+                <p>Всего денег:<b>2550руб</b></p>
+                <select name="paymantSystem" class="paymentSystem" id="paymentSystem" >
+                    <option value="1">Qiwi Wallet</option>
+                    <option value="2">Yandex Деньги</option>
+                    <option value="3">WebMoney</option>
+                </select>                
+                <input type="text" value="" name="moneyBag" id="moneyBagId" placeholder="Вносимая сумма..." pattern="[0-9]{,10}"/>
+                <input type="button" class="button-1 w1 w-pay" value="ВНЕСТИ">
                 <div class="pouch-scroll">
 
                     <div class="pouch-item">                        

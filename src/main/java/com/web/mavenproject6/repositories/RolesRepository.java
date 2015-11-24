@@ -17,5 +17,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface RolesRepository extends JpaRepository<Roles, Long> {
 
-    Roles findRolesByUsers(Users user);
+    
 }

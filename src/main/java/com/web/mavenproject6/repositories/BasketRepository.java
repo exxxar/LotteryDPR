@@ -19,6 +19,4 @@ import org.springframework.data.repository.CrudRepository;
 public interface BasketRepository extends JpaRepository<BasketLog, Long> {
 
     List<BasketLog> findBasketLogByUserId(long userId);
-    Stock findeStockByBasketLog(BasketLog basketLog);
-
-}
+ }

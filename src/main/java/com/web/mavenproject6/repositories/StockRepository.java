@@ -17,5 +17,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface StockRepository extends JpaRepository<Stock, Long> {
 
-    Stock findStockByBasketLog(BasketLog basketLog);
+  
 }
