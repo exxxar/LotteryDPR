@@ -14,15 +14,17 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "paymentsystems")
-public class PaymentSystems implements Serializable
-{
-      @Id
+public class PaymentSystems implements Serializable {
+
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private Long id;   
-    private long userId;    
+    private long id;
+    private long userId;
     private double cash;
-    private Long typeofwallet;
+    private long typeofwallet;
+    private long expiration;
+    private String _key;
 
     public Long getId() {
         return id;
@@ -56,6 +58,20 @@ public class PaymentSystems implements Serializable
         this.cash = cash;
     }
 
-   
-    
+    public long getExpiration() {
+        return expiration;
+    }
+
+    public void setExpiration(long expiration) {
+        this.expiration = expiration;
+    }
+
+    public String getKey() {
+        return _key;
+    }
+
+    public void setKey(String _key) {
+        this._key = _key;
+    }
+
 }
