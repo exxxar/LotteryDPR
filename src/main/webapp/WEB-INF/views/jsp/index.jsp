@@ -160,7 +160,7 @@
                     <img class="exit-modal" src="<c:url value="/resources/img/close.png"/>"/>
                     <div class="window-top-title">
                         <h1>
-                            РЕГИСТРАЦИЯ НОВОГО ПОЛЬЗОВАТЕЛЯ
+                            РЕГИСТРАЦИЯ
                         </h1>
                     </div>
                     <c:url value="/public/signup_confirm" var="regUrl"/>
@@ -228,12 +228,14 @@
                                 ReCaptcha c = ReCaptchaFactory.newReCaptcha("6LePpQoTAAAAALfpVXPBsMAb_WB3LaW3lLP9MPAV", "6LePpQoTAAAAAPuvxMIXlWYbWScYOGXSC9dJR20M", false);
                                 out.print(c.createRecaptchaHtml(null, null));
                             %>
-                        </div>
+                        </div>          
+                         <a href="#" class="rules">Правила использования</a>
                         <div class="remark">
                             <h1>
                                 ПОЛЯ, ОТМЕЧЕННЫЕ ЗВЕЗДОЧКОЙ<b>*</b> - ОБЯЗАТЕЛЬНЫ ДЛЯ ЗАПОЛНЕНИЯ
                             </h1>
                         </div>
+                       
                         <input class="button-1 w2" type="submit" value="ВОЙТИ"/>
                         <input id="token" type="hidden" value="${sessionScope.csrfToken}" />
                     </form:form>

@@ -118,7 +118,7 @@ input {
     height:250px;
     background:url('../img/body.png') no-repeat center;
     position:absolute;
-    background-size:cover;
+    background-size: 100% 100%;
     z-index:2;
 }
 
@@ -152,7 +152,7 @@ input {
     z-index:1;
     transform:rotateZ(96deg);
     -webkit-transform-origin: 30% 60%;
-     -moz-transform-origin: 30% 60%;
+    -moz-transform-origin: 30% 60%;
     -ms-transform-origin: 30% 60%;
     -o-transform-origin: 30% 60%;
     transform-origin: 30% 60%;
@@ -336,7 +336,7 @@ ul li a
 .window-1
 {
     width: 430px;
-    height: 650px;
+    height: 690px;
     top: 00px;
     position: relative;
     margin: 0 auto;
@@ -352,7 +352,7 @@ ul li a
     height: 20px;
     position: absolute;
     top: 0px;
-    left: 390px;
+    right:0px;
     padding:10px;
 }
 
@@ -367,7 +367,7 @@ ul li a
     background: rgba(25,25,25,1);
     padding-top:20px;
     //transform:scale(0.75,0.75);
-    
+
 }
 
 
@@ -378,7 +378,7 @@ ul li a
     position: absolute;
     top: 0px;
     left: 390px;
-     padding:10px;
+    padding:10px;
     //border: 1px green solid;
 }
 
@@ -467,10 +467,25 @@ ul li a
 .all-fields
 {
     width: 430px;
-    height: 550px;
+    height: 600px;
     float: left;
     margin-top: 25px;
     margin-left: 15px;
+}
+.all-fields a.rules{
+    color: white;
+    float: left;
+    text-decoration: none;
+    border-bottom: 2px white dashed;
+    line-height: 150%;
+    margin-bottom: 20px;
+     transition: 1s;
+}
+
+.all-fields a.rules:hover {
+    color:red;
+    border-bottom:2px red dashed;
+    transition: 1s;
 }
 
 .field
@@ -693,7 +708,7 @@ hr
     height: 70px;
     float: left;
     transition: 1s;
-     cursor:pointer;
+    cursor:pointer;
 }
 .all-img-w2  img:hover  {
     transform:scale(1.2,1.2);
