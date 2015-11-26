@@ -14,9 +14,8 @@
         <link href="<c:url value="/resources/css/reset.css"/>" rel="stylesheet">
         <link href="<c:url value="/resources/css/userRoomStyle.css"/>" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=PT+Sans+Narrow&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-        <script src="<c:url value="/resources/js/jquery-2.1.4.min.js"/>"></script>
+
         <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
         <title>User Room</title>
     </head>
     <script>
@@ -555,5 +554,5 @@
     </body>
 
 
-
+    <script src="<c:url value="/resources/js/jquery-2.1.4.min.js"/>"></script>
 </html>
