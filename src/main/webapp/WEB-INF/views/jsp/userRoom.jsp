@@ -247,7 +247,7 @@
                                                 <input type="hidden" value="" class="tisOpend"/>
                                                 <img src="<c:url value="/resources/img/Tiket.jpg"/>"/>
                                             </label>
-
+                                            <a class="showProduct"><img class="open" src="<c:url value="/resources/img/open.png"/>"/></a>
                                         </div>
                                     </li>
                                     <li>
@@ -305,7 +305,8 @@
                                                 <input type="hidden" value="" class="tenddate"/>
                                                 <input type="hidden" value="" class="tisOpend"/>
                                                 <img src="<c:url value="/resources/img/Tiket.jpg"/>"/>
-                                            </label>	
+                                            </label>
+                                            
                                         </div>
 
                                     </li>
@@ -439,7 +440,7 @@
             <div class="window-1">
                 <img class="exit-modal" src="<c:url value="/resources/img/close.png"/>"/>
                 <h1>КОШЕЛЬКИ</h1>
-                <p>Всего денег:<b>2550руб</b></p>
+                <p>Всего денег: <b>2550руб</b></p>
                 <select name="paymantSystem" class="paymentSystem" id="paymentSystem" >
                     <option value="1">Qiwi Wallet</option>
                     <option value="2">Yandex Деньги</option>
@@ -455,6 +456,7 @@
                         </div>
                         <img class="del-pouch-item" src="<c:url value="/resources/img/close.png"/>"/>
                         <h1>Номер кошелька:123456789012346</h1>
+                        <h2>Дата добавления: 12.05.2015</h2>
                         <h2>Баланс: 230р 00 коп.</h2>
                     </div>
 

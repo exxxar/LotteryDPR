@@ -895,3 +895,7 @@ li  img
     transform-origin: 30% 60%;
     -webkit-animation: right 3s infinite;
 }
+
+.win-12 .window-1{
+    height:150px;
+}
