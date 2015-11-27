@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -135,7 +136,6 @@ public class UserController {
         ut.setUser(user);
         user.setUserType(ut);
 
-       
         userService.getRepository().save(user);
 
         mailSenderService.sendGreatingMail(user.getEmail(), "new user has entered to your site");
@@ -178,6 +178,24 @@ public class UserController {
         }
         return "jsp/index";
 
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/public/remeberMyPassword",method = RequestMethod.POST)
+    public String remeberPassword(
+            @RequestParam(value = "mail", required = true) String mail, Model model,
+            ServletRequest servletRequest, HttpServletResponse servletResponse) {
+
+        Users user = null;
+
+        try {
+            user = userService.getRepository().findUsersByEmail(mail);
+            mailSenderService.sendGreatingMail(user.getEmail(), "Ваш логин:" + user.getLogin() + "Ваш пароль:" + user.getPassword());
+        } catch (Exception e) {
+            mailSenderService.sendGreatingMail(mail, "Извените, но данные, запрошенные вами, не найдены.");
+        }
+
+        return "ok";
     }
 
 }

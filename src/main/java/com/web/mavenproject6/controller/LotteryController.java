@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
- * @author ������� �������
+ * @author 
  */
 @Controller
 public class LotteryController {
@@ -77,7 +77,7 @@ public class LotteryController {
                 }
                 obj.put("paymentType", paymentType);
                 obj.put("paymentNum", (long) (Math.random() * 100000000));
-                obj.put("balance", "230� 50���.");//
+                obj.put("balance", "230Р 50КОП.");//
                 ar.add(obj);
             }
             o.put("payment", ar);
@@ -103,12 +103,12 @@ public class LotteryController {
 
             JSONObject obj = new JSONObject();
 
-            obj.put("balance", "2000�");
+            obj.put("balance", "2000р");
             obj.put("discont", "20%");
-            obj.put("ticketCount", "1000��");
-            obj.put("allTicketCount", "1560��");//
-            obj.put("fio", "������� ����� �����������");//
-            obj.put("age", "33 ����");//
+            obj.put("ticketCount", "1000шт");
+            obj.put("allTicketCount", "1560шт");//
+            obj.put("fio", "Пушкин А.С.");//
+            obj.put("age", "33 года");//
             obj.put("tel", "8-800-500-0-501");
             obj.put("email", "dodod@GMAIL.COM");
 
@@ -189,9 +189,9 @@ public class LotteryController {
             JSONObject obj = new JSONObject();
 
             obj.put("id", "1");
-            obj.put("name", "������������ ������� ���");
-            obj.put("title", "100% ������");
-            obj.put("price", "100�");//            
+            obj.put("name", "НАЦИОНАЛЬНАЯ ЛОТЕРЕЯ ДНР");
+            obj.put("title", "100% ПОБЕДА");
+            obj.put("price", "100Р");//            
             obj.put("adddate","01.05.2015");//
             obj.put("enddate", "01.06.2015");// 
             obj.put("isOpend", "false");
@@ -214,7 +214,7 @@ public class LotteryController {
     @ResponseBody
     @RequestMapping(value = "/selectAllTikets", method = RequestMethod.GET)
     public String selectAllUserTikets() {
-        //��������� ���� ���������
+        //????????? ???? ?????????
         return "";
     }
 
