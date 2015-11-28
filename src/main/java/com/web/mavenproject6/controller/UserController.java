@@ -123,6 +123,7 @@ public class UserController {
         user.setFio(form.getFname() + " " + form.getSname() + " " + form.getTname());
         user.setNumberoftikets(0l);
         user.setTelephone("");
+        user.setAge(18);
         user.setRegdate(new Date().getTime());
         user.setVerifiedAccount(true);
 
@@ -135,7 +136,7 @@ public class UserController {
         ut.setTypeName("ПОКУПАТЕЛЬ");
         ut.setUser(user);
         user.setUserType(ut);
-
+        user.setSummaryCash(1000.0);
         userService.getRepository().save(user);
 
         mailSenderService.sendGreatingMail(user.getEmail(), "new user has entered to your site");
