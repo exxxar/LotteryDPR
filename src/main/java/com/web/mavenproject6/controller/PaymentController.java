@@ -5,16 +5,26 @@
  */
 package com.web.mavenproject6.controller;
 
+import com.web.mavenproject6.entities.PaymentSystems;
+import com.web.mavenproject6.entities.Users;
 import com.web.mavenproject6.forms.UserForm;
+import com.web.mavenproject6.service.PaymentSystemService;
+import com.web.mavenproject6.service.UserService;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Date;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +56,13 @@ public class PaymentController {
     private String url;
     int shp_item = 1;// тип товара, всегда 1 - биллет  
 
+    @Autowired
+    private PaymentSystemService paymentService;
+
+    @Autowired
+    @Qualifier("UserServiceImpl")
+    UserService userService;
+
     @RequestMapping(value = {"/pay"})
     public Object requestURL(
             @RequestParam(value = "money", required = true) String money,
@@ -75,6 +92,19 @@ public class PaymentController {
 
         double _money = Double.parseDouble("0" + money);
         String md5String = md5SignatureValue(_money, inv_id, password1, ":Shp_item=" + shp_item);
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetail = (UserDetails) auth.getPrincipal();
+
+        Users u = userService.getRepository().findUsersByLogin(userDetail.getUsername());
+        PaymentSystems ps = new PaymentSystems();
+        ps.setCash(0);
+        ps.setExpiration((new Date()).getTime() + 10000000);
+        ps.setKey(md5String);
+        ps.setTypeofwallet(Long.parseLong(paymentType));
+        ps.setUserId(u.getId());
+        paymentService.getRepository().save(ps);
+
         ModelAndView m = new ModelAndView("jsp/askrequest");
         m.addObject("action", url);
         m.addObject("MrchLogin", login);
@@ -101,7 +131,15 @@ public class PaymentController {
         long _id = Long.parseLong(invId);
 
         String md5String = md5SignatureValue(_money, _id, password2, ":Shp_item=" + shp_item);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetail = (UserDetails) auth.getPrincipal();
+        Users u = userService.getRepository().findUsersByLogin(userDetail.getUsername());
 
+        PaymentSystems ps = (PaymentSystems) paymentService.getRepository().findPaymentSystemsByUserId(u.getId());
+        if (md5String.equals(ps.getKey())) {
+            u.setSummaryCash(_money);
+            userService.getRepository().save(u);
+        }
         HttpGet method = new HttpGet(url.concat("?OK").concat(invId));
         HttpClient client = new DefaultHttpClient();
         client.execute(method);
@@ -117,8 +155,20 @@ public class PaymentController {
         double _money = Double.parseDouble(outSum);
         long _id = Long.parseLong(invId);
 
-        String md5String = md5SignatureValue(_money, _id, password1, ":Shp_item=" + shp_item);
-        
+        String md5String = md5SignatureValue(_money, _id, password2, ":Shp_item=" + shp_item);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetail = (UserDetails) auth.getPrincipal();
+        Users u = userService.getRepository().findUsersByLogin(userDetail.getUsername());
+
+        PaymentSystems ps = (PaymentSystems) paymentService.getRepository().findPaymentSystemsByUserId(u.getId());
+        if (md5String.equals(ps.getKey())) {
+            u.setSummaryCash(_money);
+            userService.getRepository().save(u);
+        }
+        HttpGet method = new HttpGet(url.concat("?OK").concat(invId));
+        HttpClient client = new DefaultHttpClient();
+        client.execute(method);
+
     }
 
     @RequestMapping(value = {"/pay_failur_url"}, method = RequestMethod.POST)

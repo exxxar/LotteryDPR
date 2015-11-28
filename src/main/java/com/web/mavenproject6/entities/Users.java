@@ -13,42 +13,44 @@ import javax.persistence.*;
  *
  * @author Татьяна Юрченко
  */
-@Entity
-@Table(name = "users")
-public class Users implements Serializable {
+@Entity//аннотация, показывающая менеджеру работы с бд, чтчо данный класс является таблицей,а поля класса - полями таблицы
+@Table(name = "users")//задает имя таблицы в базе данных
+public class Users implements Serializable { //создание класса таблицы с уникальным идентификатором
 
-     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Id//указывает менеджеру, что данное поле является полем идентификации элемента в таблице
+    @GeneratedValue(strategy = GenerationType.AUTO) //тип индекса - автоинкримент
+    private Long id;//тип в таблицы - число
     
-    private String fio;   
-    private String adress;
-    private String telephone;
-    private String email;
-    private String password;
-    private Long numberoftikets;
-    private Long discount;
-    private long regdate;
-    private long lastonline;
-    private boolean verifiedAccount;
-    private double summaryCash;
+    private String fio;   //строковый тип 0..255 символов, без ограничений, фио пользователя
+    private String adress;  //строковый тип 0..255 символов, без ограничений, адресс пользователя
+    private String telephone;  //строковый тип 0..255 символов, без ограничений, телефонный номер пользователя
+    private String email;  //строковый тип 0..255 символов, без ограничений, адресс электронной почты пользователя
+    private String password;  //строковый тип 0..255 символов, без ограничений, пароль пользователя
+    private int age; 
+    private Long numberoftikets; //целочисленный тип, количество билетов
+    private Long discount;//целочисленный тип, процент скидки пользователя
+    private long regdate;//целочисленный тип, представление даты и времени в виде числа, дата регистрации
+    private long lastonline;//целочисленный тип, представление даты и времени в виде числа, дата последнего входа в систему
+    private boolean verifiedAccount;//логический тип, подтвержденный аккаунт
+    private double summaryCash;//вещественный тип, отображение суммы на счету пользователя
     
-    @Column(unique = true)
-    private String login;
+    @Column(unique = true) //уникальное поле
+    private String login; //строковый тип 0..255 символов, является уникальным поле, отвечающим за вход пользователя
 
 
-    @OneToOne(mappedBy = "user", cascade = {CascadeType.ALL})
-    private UsersTypes userType;
+    @OneToOne(mappedBy = "user", cascade = {CascadeType.ALL}) //аннотация, связывающая каскадно таблицу тип пользвоателя с пользователем связью 1 к 1, ключевое поле - user
+    private UsersTypes userType;// таблица типов пользователя, поле необходимо для связывания
 
-    private boolean accountExpired;
-    private boolean accountLocked;
-    private boolean enabled;
+    private boolean accountExpired; //логический тип, аккаунт действителен
+    private boolean accountLocked;//логический тип, аккунт не блокирован
+    private boolean enabled;//логический тип, аккаунт активне
 
   
     
-    @OneToOne(mappedBy = "user", cascade = {CascadeType.ALL})
-    private Roles role;
+    @OneToOne(mappedBy = "user", cascade = {CascadeType.ALL}) //аннотация, связывающая каскадкно таблицу пользователей и таблиу ролей пользователя 
+    private Roles role;// таблица ролей пользователя, поле необходимо для связывания
 
+    //ниже прежставлены набор функций установки и получения данных из выше перечисленных полей таблицы
     public Long getId() {
         return id;
     }
@@ -193,6 +195,14 @@ public class Users implements Serializable {
 
     public void setSummaryCash(double summaryCash) {
         this.summaryCash = summaryCash;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
    

@@ -1,16 +1,24 @@
-
 package com.web.mavenproject6.controller;
 
+import com.web.mavenproject6.entities.BasketLog;
+import com.web.mavenproject6.entities.Users;
+import com.web.mavenproject6.service.BasketLogService;
+import com.web.mavenproject6.service.StockService;
+import com.web.mavenproject6.service.UserService;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,7 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
- * @author 
+ * @author
  */
 @Controller
 public class LotteryController {
@@ -31,11 +39,26 @@ public class LotteryController {
     @Autowired
     ServletContext servletContext;
 
+    @Autowired
+    StockService stockService;
+
+    @Autowired
+    BasketLogService bascketLog;
+
+    @Autowired
+    @Qualifier("UserServiceImpl")
+    UserService userService;
+
+    @Autowired
+    Environment env;
+
+    @Autowired
+    private MessageSource messageSource;
+
     @RequestMapping(value = {"/lottery"})
     public String getLotteryMainPage() {
         return "jsp/playLottery";
     }
-  
 
     @RequestMapping(value = {"/userroom"})
     public String getLotteryUserRoom() {
@@ -101,22 +124,26 @@ public class LotteryController {
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             UserDetails userDetail = (UserDetails) auth.getPrincipal();
 
+            Users u = userService.getRepository().findUsersByLogin(userDetail.getUsername());
+            int count = bascketLog.getRepository().findBasketLogByUserId(u.getId()).size();
             JSONObject obj = new JSONObject();
 
-            obj.put("balance", "2000р");
-            obj.put("discont", "20%");
-            obj.put("ticketCount", "1000шт");
-            obj.put("allTicketCount", "1560шт");//
-            obj.put("fio", "Пушкин А.С.");//
-            obj.put("age", "33 года");//
-            obj.put("tel", "8-800-500-0-501");
-            obj.put("email", "dodod@GMAIL.COM");
+            obj.put("id", u.getId());
+            obj.put("balance", u.getSummaryCash());
+            obj.put("discont", u.getDiscount() + "%");
+            obj.put("ticketCount", count);
+            obj.put("allTicketCount", u.getNumberoftikets());//
+            obj.put("fio", u.getFio());//
+            obj.put("age", u.getAge());//
+            obj.put("tel", u.getTelephone());
+            obj.put("email", u.getEmail());
 
             return obj.toString();
         }
         return "not ok";
     }
-@ResponseBody
+
+    @ResponseBody
     @RequestMapping(value = "/getUserPhoto", method = RequestMethod.GET)
     public byte[] getUserPhoto() throws IOException {
         BufferedImage img;
@@ -126,95 +153,124 @@ public class LotteryController {
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             UserDetails userDetail = (UserDetails) auth.getPrincipal();
 
-            in = servletContext.getResourceAsStream("/resources/img/avatar.jpg");
-            
+            in = servletContext.getResourceAsStream(env.getProperty("photo.avatar.default"));
+
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	
+
             img = ImageIO.read(in);
-            ImageIO.write( img, "jpg", baos );
+            ImageIO.write(img, env.getProperty("photo.type"), baos);
             baos.flush();
             byte[] imageInByte = baos.toByteArray();
             baos.close();
             return imageInByte;
         }
 
-        in = servletContext.getResourceAsStream("/resources/img/avatar.jpg");
+        in = servletContext.getResourceAsStream(env.getProperty("photo.avatar.default"));
         img = ImageIO.read(in);
- ByteArrayOutputStream baos = new ByteArrayOutputStream();
-         ImageIO.write( img, "jpg", baos );
-            baos.flush();
-            byte[] imageInByte = baos.toByteArray();
-            baos.close();
-            return imageInByte;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(img, env.getProperty("photo.type"), baos);
+        baos.flush();
+        byte[] imageInByte = baos.toByteArray();
+        baos.close();
+        return imageInByte;
 
     }
-//    @ResponseBody
-//    @RequestMapping(value = "/getUserPhoto", method = RequestMethod.GET)
-//    public BufferedImage getUserPhoto() throws IOException {
-//        BufferedImage img;
-//        InputStream in;
-//
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        if (!(auth instanceof AnonymousAuthenticationToken)) {
-//            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-//
-//            in = servletContext.getResourceAsStream("/resources/img/avatar.jpg");
-//            img = ImageIO.read(in);
-//            return img;
-//        }
-//
-//        in = servletContext.getResourceAsStream("/resources/img/avatar.jpg");
-//        img = ImageIO.read(in);
-//
-//        return img;
-//
-//    }
 
     @ResponseBody
     @RequestMapping(value = "/getTickets", method = RequestMethod.POST)
     public String getUserTickets(
-            @RequestParam(required = false) String ticketPacket
+            @RequestParam(required = true) String ticketPacket,
+            Locale locale
     ) throws JSONException {
         int packetTicket = Integer.parseInt(ticketPacket);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            
+            Users u = userService.getRepository().findUsersByLogin(userDetail.getUsername());
             JSONObject o = new JSONObject();
-            JSONArray ar = new JSONArray();
-            o.put("ticketsCount", "37");
-            o.put("displayedTickets", "10");
-            
-            for (int i=0;i<10;i++){
-            JSONObject obj = new JSONObject();
+            o.put("ticketsCount", bascketLog.getRepository().count());
+            o.put("displayedTickets", env.getProperty("ticket.displayMax"));
+            JSONArray ja = new JSONArray();
+            for (int i = packetTicket;
+                    i < (packetTicket * Integer.parseInt(env.getProperty("ticket.displayMax"))
+                    + Integer.parseInt(env.getProperty("ticket.displayMax")));
+                    i++) {
 
-            obj.put("id", "1");
-            obj.put("name", "НАЦИОНАЛЬНАЯ ЛОТЕРЕЯ ДНР");
-            obj.put("title", "100% ПОБЕДА");
-            obj.put("price", "100Р");//            
-            obj.put("adddate","01.05.2015");//
-            obj.put("enddate", "01.06.2015");// 
-            obj.put("isOpend", "false");
+                BasketLog b = bascketLog.getRepository().findBasketLogByUserId(u.getId()).get(i);
 
-            ar.add(obj);
+                JSONObject obj = new JSONObject();
+                obj.put("id", b.getId());
+                obj.put("name", messageSource.getMessage("ticket.name", null, locale));
+                obj.put("title", messageSource.getMessage("ticket.title", null, locale));
+                obj.put("price", env.getProperty("ticket.price") + messageSource.getMessage("ticket.currency", null, locale));//            
+                obj.put("userId", b.getUserId());
+                obj.put("winnings", b.getWinnings());
+                obj.put("addDate", b.getAdddate());
+                obj.put("endDate", b.getEnddate());
+                ja.add(obj);
             }
-            return o.put("tickets", ar).toString();
+            o.put("tickets", ja);
+            return o.toString();
+
         }
         return "not ok";
     }
 
     @ResponseBody
     @RequestMapping(value = "/getAllTickets", method = RequestMethod.GET)
-    public String getUserAllTickets() {
+    public String getUserAllTickets(Locale locale) throws JSONException {
 
-        //json
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetail = (UserDetails) auth.getPrincipal();
+        Users u = userService.getRepository().findUsersByLogin(userDetail.getUsername());
+
+        JSONObject o = new JSONObject();
+        o.put("ticketsCount", bascketLog.getRepository().count());
+        JSONArray ja = new JSONArray();
+        for (BasketLog b : bascketLog.getRepository().findBasketLogByUserId(u.getId())) {
+
+            JSONObject obj = new JSONObject();
+            obj.put("id", b.getId());
+            obj.put("name", messageSource.getMessage("ticket.name", null, locale));
+            obj.put("title", messageSource.getMessage("ticket.title", null, locale));
+            obj.put("price", env.getProperty("ticket.price") + messageSource.getMessage("ticket.currency", null, locale));//            
+            obj.put("userId", b.getUserId());
+            obj.put("winnings", b.getWinnings());
+            obj.put("addDate", b.getAdddate());
+            obj.put("endDate", b.getEnddate());
+            ja.add(obj);
+        }
+        o.put("tickets", ja);
+        return o.toString();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/byeTicket", method = RequestMethod.POST)
+    public String byeOneLotteryTicket() {
+
         return "";
     }
 
     @ResponseBody
-    @RequestMapping(value = "/selectAllTikets", method = RequestMethod.GET)
-    public String selectAllUserTikets() {
-        //????????? ???? ?????????
+    @RequestMapping(value = "/deleteTicket", method = RequestMethod.POST)
+    public String deleteLotteryTicket(@RequestParam(value = "ticketId", required = true) String ticketId) {
+        bascketLog.getRepository().delete(bascketLog.getRepository().findOne(Long.parseLong(ticketId)));
+        return bascketLog.getRepository().exists(Long.parseLong(ticketId)) ? "1" : "0";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/openTicket", method = RequestMethod.POST)
+    public String openLotteryTicket(@RequestParam(value = "ticketId", required = true) String ticketId) {
+
+        return "";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/sendToFriend", method = RequestMethod.POST)
+    public String sendTicketToFriend(
+            @RequestParam(value = "ticketId", required = true) String ticketId,
+            @RequestParam(value = "friendId", required = true) String friendId) {
+
         return "";
     }
 

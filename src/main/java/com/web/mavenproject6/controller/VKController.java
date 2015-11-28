@@ -135,7 +135,7 @@ public class VKController {
             return new JSONObject();
         }
 
-        String paramString = "?".concat(accessToken);
+        String paramString = "?access_token".concat(accessToken);
         if (params != null) {
             for (Param p : params) {
                 paramString = paramString
