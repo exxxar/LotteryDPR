@@ -18,12 +18,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.tanesha.recaptcha.ReCaptchaImpl;
 import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
@@ -63,6 +65,9 @@ public class UserController {
     @Autowired
     @Qualifier("PaymentSystemServiceImpl")
     PaymentSystemService paymentSystemService;
+
+    @Autowired
+    private MessageSource messageSource;
 
 //    @Autowired
 //    AccountsVerifiedCodes securityCodeRepository;
@@ -182,8 +187,8 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/public/remeberMyPassword",method = RequestMethod.POST)
-    public String remeberPassword(
+    @RequestMapping(value = "/public/remeberMyPassword", method = RequestMethod.POST)
+    public String remeberPassword(Locale locale,
             @RequestParam(value = "mail", required = true) String mail, Model model,
             ServletRequest servletRequest, HttpServletResponse servletResponse) {
 
@@ -191,9 +196,9 @@ public class UserController {
 
         try {
             user = userService.getRepository().findUsersByEmail(mail);
-            mailSenderService.sendGreatingMail(user.getEmail(), "Ваш логин:" + user.getLogin() + "Ваш пароль:" + user.getPassword());
+            mailSenderService.sendGreatingMail(user.getEmail(), String.format(messageSource.getMessage("account.remember.ok", null, locale), user.getLogin(),user.getPassword()));
         } catch (Exception e) {
-            mailSenderService.sendGreatingMail(mail, "Извените, но данные, запрошенные вами, не найдены.");
+            mailSenderService.sendGreatingMail(mail, messageSource.getMessage("account.remember.bad", null, locale));
         }
 
         return "ok";

@@ -73,22 +73,7 @@ public class PaymentController {
         String email = "test@test.com";// Адрес электронной почты покупателя
         String expirationDate = "2015-07-30T12:00";// Срок действия счёта
 
-        String in_curr = "";// предлагаемая валюта платежа
-        switch (Integer.parseInt(paymentType)) {
-            case 1:
-                in_curr = "QIWIWALLET";
-                break;
-            case 2:
-                in_curr = "WEBMONEY";
-                break;
-            case 3:
-                in_curr = "YANDEXMONEY";
-                break;
-            case 0:
-            default:
-                in_curr = "BANKOCEAN2R";
-                break;
-        }
+        String in_curr =  "BANKOCEAN2R";     
 
         double _money = Double.parseDouble("0" + money);
         String md5String = md5SignatureValue(_money, inv_id, password1, ":Shp_item=" + shp_item);
@@ -137,7 +122,7 @@ public class PaymentController {
 
         PaymentSystems ps = (PaymentSystems) paymentService.getRepository().findPaymentSystemsByUserId(u.getId());
         if (md5String.equals(ps.getKey())) {
-            u.setSummaryCash(_money);
+            u.setSummaryCash(u.getSummaryCash()+_money);
             userService.getRepository().save(u);
         }
         HttpGet method = new HttpGet(url.concat("?OK").concat(invId));
@@ -162,7 +147,7 @@ public class PaymentController {
 
         PaymentSystems ps = (PaymentSystems) paymentService.getRepository().findPaymentSystemsByUserId(u.getId());
         if (md5String.equals(ps.getKey())) {
-            u.setSummaryCash(_money);
+            u.setSummaryCash(u.getSummaryCash()+_money);
             userService.getRepository().save(u);
         }
         HttpGet method = new HttpGet(url.concat("?OK").concat(invId));

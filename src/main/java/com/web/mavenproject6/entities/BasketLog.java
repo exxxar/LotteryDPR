@@ -29,8 +29,7 @@ public class BasketLog implements Serializable
     private long adddate;
     private long enddate;
     
-    @OneToOne(mappedBy = "basketLog",cascade = CascadeType.ALL)
-    private Stock stock;
+   private long stockId;
   
 
     public Long getId() {
@@ -75,18 +74,12 @@ public class BasketLog implements Serializable
         this.userId = userId;
     }
 
-    public Stock getStock() {
-        return stock;
+    public long getStockId() {
+        return stockId;
     }
 
-    public void setStock(Stock stock) {
-        this.stock = stock;
-    }
-
- 
-
- 
-
-    
+    public void setStockId(long stockId) {
+        this.stockId = stockId;
+    } 
     
 }
