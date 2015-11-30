@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
@@ -246,8 +247,28 @@ public class LotteryController {
 
     @ResponseBody
     @RequestMapping(value = "/byeTicket", method = RequestMethod.POST)
-    public String byeOneLotteryTicket() {
-
+    public String byeOneLotteryTicket(Locale locale) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetail = (UserDetails) auth.getPrincipal();
+        Users u = userService.getRepository().findUsersByLogin(userDetail.getUsername());
+        
+        if ((u.getSummaryCash()-Integer.parseInt(env.getProperty("ticket.price")))>0)
+        {
+            u.setSummaryCash(u.getSummaryCash()-Integer.parseInt(env.getProperty("ticket.price")));
+            BasketLog bl = new BasketLog();
+            bl.setWinnings(messageSource.getMessage("ticket.winnings", null, locale));
+            bl.setUserId(u.getId());
+            bl.setAdddate(new Date().getTime());
+            bl.setEnddate(new Date().getTime()+Long.parseLong(env.getProperty("ticket.expire")));
+            
+            long maxPizes = stockService.getRepository().count();
+            long randomItem = (int)(Math.random() * maxPizes);
+            
+            bl.setStockId(stockService.getRepository().findOne(randomItem).getId());
+           
+            bascketLog.getRepository().save(bl);
+            userService.getRepository().save(u);
+        }
         return "";
     }
 

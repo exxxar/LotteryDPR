@@ -36,10 +36,10 @@ public class Stock implements Serializable
     private boolean rented;
     private boolean sold;
     
-    private Date comingdate;
+    private long comingdate;
 
-    @OneToOne
-    private BasketLog basketLog;
+//    @OneToOne
+//    private BasketLog basketLog;
 
     public Long getId() {
         return id;
@@ -89,21 +89,21 @@ public class Stock implements Serializable
         this.sold = sold;
     }
 
-    public Date getComingdate() {
+    public long getComingdate() {
         return comingdate;
     }
 
-    public void setComingdate(Date comingdate) {
+    public void setComingdate(long comingdate) {
         this.comingdate = comingdate;
     }
 
-    public BasketLog getBasketLog() {
-        return basketLog;
-    }
-
-    public void setBasketLog(BasketLog basketLog) {
-        this.basketLog = basketLog;
-    }
+//    public BasketLog getBasketLog() {
+//        return basketLog;
+//    }
+//
+//    public void setBasketLog(BasketLog basketLog) {
+//        this.basketLog = basketLog;
+//    }
 
   
     

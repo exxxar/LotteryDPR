@@ -117,7 +117,10 @@
                     <input type="hidden" id="isAutorized" value="true"/>
                     <p>Добрый день, <i>${user.username}!</i><br/></p>
                     <a href="<c:url value="/userroom"/>">Перейти в личный кабине</a><br/>
-                    <a href="<c:url value="/j_spring_security_logout"/>">Выход</a>                    
+                    <a href="<c:url value="/j_spring_security_logout"/>">Выход</a><br/> 
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                         <a href="<c:url value="/admin/stock"/>">Админка</a>
+                    </sec:authorize>
                 </div>
             </sec:authorize>
 

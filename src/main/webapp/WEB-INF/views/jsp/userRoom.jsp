@@ -247,7 +247,7 @@
                                                 <input type="hidden" value="" class="tisOpend"/>
                                                 <img src="<c:url value="/resources/img/Tiket.jpg"/>"/>
                                             </label>
-                                            <a class="showProduct"><img class="open" src="<c:url value="/resources/img/open.png"/>"/></a>
+                                           
                                         </div>
                                     </li>
                                     <li>
