@@ -119,7 +119,7 @@
                     <a href="<c:url value="/userroom"/>">Перейти в личный кабине</a><br/>
                     <a href="<c:url value="/j_spring_security_logout"/>">Выход</a><br/> 
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
-                         <a href="<c:url value="/admin/stock"/>">Админка</a>
+                         <a href="<c:url value="/admin/stock"/>">Административаня панель</a>
                     </sec:authorize>
                 </div>
             </sec:authorize>
