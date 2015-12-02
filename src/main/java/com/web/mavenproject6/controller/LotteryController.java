@@ -70,6 +70,12 @@ public class LotteryController {
     public String getLotteryTiket() {
         return "jsp/tiket";
     }
+    
+    
+    @RequestMapping(value = {"/getPrize"})
+    public String getPrize() {
+        return "jsp/prize";
+    }
 
     @ResponseBody
     @RequestMapping(value = {"/getUserPayment"}, method = RequestMethod.POST)
@@ -294,5 +300,7 @@ public class LotteryController {
 
         return "";
     }
+    
+    
 
 }

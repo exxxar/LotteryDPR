@@ -17,19 +17,20 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     </head>
     <body>
         <div class="container">
             <div class="jumbotron">
-                <h1>Административная страница</h1>
+                <h1>Административная панель</h1>
                 <p>Расширение возможностей функционала</p>
             </div>
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#home">Добавление товара</a></li>
-                        <li><a data-toggle="tab" href="#menu1" disable>Добавление пользователя</a></li>
-                        <li><a data-toggle="tab" href="#menu2" disable>В разработке</a></li>
+                        <li class="active"><a data-toggle="tab" href="#home">Товар на складе</a></li>
+                        <li><a data-toggle="tab" href="#menu1" disable>Пользователи</a></li>
+                        <li><a data-toggle="tab" href="#menu2" disable>Корзины</a></li>
                     </ul>
 
                     <div class="tab-content" style="margin-top:20px;">
@@ -40,8 +41,10 @@
                                             name="prizes" required="true" pattern="^[a-zA-Z0-9]{6,}"/>   
 
                                 <form:input type="text" placeholder="Введите категорию товара" path="category" class="form-control" value="" 
-                                            name="category" required="true" pattern="^[a-zA-Z0-9]{3,}"/>   
-                                <input class="btn btn-default" type="submit" value="ДОБАВИТЬ"/>
+                                            name="category" required="true" pattern="^[a-zA-Z0-9]{3,}"/> 
+                                
+                                <a type="button" class="btn btn-default" href=""><i class="fa fa-camera-retro"></i></a>
+                                <input class="btn btn-default" type="submit" value="ДОБАВИТЬ"/>                                
                                 <input type="hidden" id="_csrf_entrance" name="_csrf" value="${_csrf.token}"/>
                                 <input id="token" type="hidden" value="${sessionScope.csrfToken}" />
                             </form:form>
@@ -49,22 +52,30 @@
 
                             <table class="table" style="margin-top:20px;">
                                 <tr>
+                                    <td>Выбор</td>
                                     <td>Id</td>
                                     <td>Prizes</td>
                                     <td>Catergory</td>
                                     <td>ComingDate</td>
                                     <td>Sold</td>
                                     <td>Rent</td>
+                                    <td>Действие</td>
                                 </tr>
 
                                 <c:forEach items="${stockList}" var="current">
                                     <tr>
-                                        <td><c:out value="${current.id}"/><p></td>
-                                        <td><c:out value="${current.prizes}"/><p></td>
-                                        <td><c:out value="${current.category}"/><p></td>
-                                        <td><c:out value="${current.comingdate}"/><p></td>
-                                        <td><c:out value="${current.rented}"/><p></td>
-                                        <td><c:out value="${current.sold}"/><p></td>
+                                        <td><input type="checkbox" id="st_check${current.id}"></td>
+                                        <td><c:out value="${current.id}"/></td>
+                                        <td><c:out value="${current.prizes}"/></td>
+                                        <td><c:out value="${current.category}"/></td>
+                                        <td><c:out value="20/11/2015 14:55"/></td>
+                                        <td><input type="checkbox" value="<c:out value="${current.rented}"/>" disabled="true"></td>
+                                        <td><input type="checkbox" value="<c:out value="${current.sold}" />" disabled="true"></td>
+                                        <td> 
+                                            <a type="button" class="btn btn-default" href=""><i class="glyphicon glyphicon-pencil"></i></a>
+                                            <a type="button" class="btn btn-default" href=""><i class="glyphicon glyphicon-remove"></i></a>  
+                                            <a type="button" class="btn btn-default" href=""><i class="fa fa-eye"></i></a>
+                                        </td>
                                     </tr>
                                 </c:forEach>    
                             </table>   
